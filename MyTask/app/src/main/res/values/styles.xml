@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Text Appearance-->
+
+
+    <!--    Layout input Text-->
+
+
+    <!--    Button-->
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/gray</item>
+    </style>
+
+
+    <!--    Check Box-->
+
+
+    <!--    Shape Apperance-->
+
+
+    <!--    Alert Dialog-->
+    <style name="ThemeOverlay.MyTask.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogCornerRadius">@dimen/rounded_medium</item>
+        <item name="backgroundTint">?colorBackgroundFloating</item>
+        <item name="android:background">?colorBackgroundFloating</item>
+    </style>
+
+
+</resources>

@@ -1,3 +1,39 @@
 <resources>
-    <string name="app_name">MyTask</string>
+    <string name="app_name">myTask</string>
+
+    <!--    OnBoarding-->
+    <string name="onboard_1_1">Lebih Mudah Dalam Mengatur Tugas</string>
+    <string name="onboard_1_2">Tasku membantu kamu lebih mudah dalam mengatur tugas sehingga kamu mempunyai waktu yang tidak terbuang sia-sia </string>
+    <string name="onboard_2_1">Membuat Kamu Menjadi Lebih Produktif</string>
+    <string name="onboard_2_2">Ketika kamu menyelesaikan tugas sesuai dengan estimasi waktu dan dilakukan secara terus menerus akan membuat kamu menjadi produktif</string>
+    <string name="onboard_3_1">Menghindari Lupa</string>
+    <string name="onboard_3_2">Ketika kamu menyelesaikan tugas sesuai dengan estimasi waktu dan dilakukan secara terus menerus akan membuat kamu menjadi produktif</string>
+
+    <!--    cta-->
+    <string name="skip">Skip</string>
+    <string name="mulai_sekarang">Mulai Sekarang</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="google_account_login">Masuk dengan Google</string>
+
+
+    <!--    placeholder-->
+    <string name="search">Search</string>
+    <string name="date_example">12/05/2020</string>
+    <string name="time_example">12.30 AM</string>
+
+    <!--    menu-->
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="notif">Notif</string>
+    <string name="akun">Akun</string>
+
+    <!--    Search Not Found-->
+    <string name="search_result_not_found">Search Results Not Found</string>
+    <string name="search_result_n_desc">Search has no results for any data</string>
+
+    <!--    Confirmation-->
+
+
 </resources>
