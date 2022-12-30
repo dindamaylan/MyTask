@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--    root-->
+    <!--root-->
     <dimen name="root_padding">20dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="extra_medium_padding">24dp</dimen>
+    <dimen name="large_padding">32dp</dimen>
+
+    <!--Boarding-->
+    <dimen name="rounded_dots">20dp</dimen>
+    <dimen name="spacing_dots">16dp</dimen>
+    <dimen name="size_dots">10dp</dimen>
+    <dimen name="margin_bottom_boarding">70dp</dimen>
+
     <dimen name="margin_vertical_text_slide">12dp</dimen>
     <dimen name="root_dialog_padding">50dp</dimen>
+
+    <!--Login-->
+    <dimen name="size_height_image">220dp</dimen>
+
+    <!--Main-->
+    <dimen name="size_height_bottom_nav">56dp</dimen>
 
     <!--    rounded-->
     <dimen name="rounded_large">200dp</dimen>
@@ -18,6 +35,6 @@
 
     <!--    devider-->
     <dimen name="divider_margin">20dp</dimen>
-    <dimen name="size_divider">4dp</dimen>
+    <dimen name="size_divider">2dp</dimen>
 
 </resources>

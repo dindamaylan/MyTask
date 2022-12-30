@@ -6,14 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TextView
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_height_bottom_nav"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lexend_semibold"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/medium_padding"
+        android:layout_marginBottom="@dimen/medium_padding"
+        android:contentDescription="@string/tambah_task"
+        android:src="@drawable/ic_add_24"
+        android:visibility="gone"
+        app:elevation="2dp"
+        app:showMotionSpec="@anim/decelerate_cubic"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

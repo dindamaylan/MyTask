@@ -1,32 +1,39 @@
 package com.scrumteam.mytask.ui.auth.register
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.scrumteam.mytask.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.scrumteam.mytask.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RegisterFragment()
-    }
-
-    private lateinit var viewModel: RegisterViewModel
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding as FragmentRegisterBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_register, container, false)
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvLogin.setOnClickListener {
+            navigateToBack()
+        }
     }
 
+    private fun navigateToBack() {
+        findNavController().navigateUp()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

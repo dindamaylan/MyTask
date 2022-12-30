@@ -10,12 +10,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnBoardViewModel @Inject constructor(private val settingsPreferences: SettingsPreferences) :
-    ViewModel() {
+class OnBoardViewModel @Inject constructor(
+    private val settingsPreferences: SettingsPreferences
+) : ViewModel() {
 
     val isFirstRunOnBoard: LiveData<Boolean> = settingsPreferences.isFirstRunOnBoard.asLiveData()
 
-    fun updateIsFirstRunOnBoard(value: Boolean){
+    fun updateIsFirstRunOnBoard(value: Boolean) {
         viewModelScope.launch {
             settingsPreferences.updateIsFirstRunOnBoard(value)
         }

@@ -1,21 +1,15 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.MyTask" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
+        <item name="android:colorBackground">@color/light_blue</item>
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/gray</item>
-        <item name="colorSecondaryVariant">@color/gray</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-
-        <!-- Customize your theme here. -->
-        <item name="alertDialogTheme">@style/ThemeOverlay.MyTask.AlertDialog</item>
-        <item name="bottomSheetDialogTheme">@style/Widget.MyTask.BottomSheetDialog</item>
-<!--        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MyTask.MaterialAlertDialog</item>-->
+        <item name="colorPrimaryContainer">@color/primary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryContainer">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="colorSurface">@color/light_blue</item>
     </style>
 
     <!--    Splash Theme-->
