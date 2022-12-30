@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    root-->
+    <dimen name="root_padding">20dp</dimen>
+    <dimen name="margin_vertical_text_slide">12dp</dimen>
+    <dimen name="root_dialog_padding">50dp</dimen>
+
+    <!--    rounded-->
+    <dimen name="rounded_large">200dp</dimen>
+    <dimen name="rounded_medium">16dp</dimen>
+
+    <dimen name="elevation_small">1dp</dimen>
+    <dimen name="elevation_medium">2dp</dimen>
+    <dimen name="size_cradle_fab">8dp</dimen>
+
+    <dimen name="margin_layout_text_to_title">12dp</dimen>
+    <dimen name="size_height_text_edit">50dp</dimen>
+
+    <!--    devider-->
+    <dimen name="divider_margin">20dp</dimen>
+    <dimen name="size_divider">4dp</dimen>
+
+</resources>

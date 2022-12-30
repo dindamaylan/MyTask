@@ -1,13 +1,16 @@
 package com.scrumteam.mytask.custom.components
 
 import android.content.Context
+import android.os.Build
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import com.scrumteam.mytask.R
+import com.scrumteam.mytask.utils.Helpers.isNotValidEmail
 
 class InputText:AppCompatEditText {
     constructor(context: Context) : super(context) {
@@ -38,7 +41,9 @@ class InputText:AppCompatEditText {
                 }
             }
         }
-//        setTextAppearance(R.style.TextAppearance_DiTalent_Body2)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setTextAppearance(R.style.TextAppearance_MyTask_Body_Regular)
+        }
     }
 
     private fun textValidatePassword(passwordText: String) {
@@ -46,7 +51,7 @@ class InputText:AppCompatEditText {
         if (text!!.length < 6 && text!!.isNotEmpty()) {
             layout?.let {
                 it.apply {
-//                    error = context.getString(R.string.password_rules_length)
+                    error = context.getString(R.string.password_rules_length)
                     isErrorEnabled = true
                 }
             }
@@ -61,25 +66,25 @@ class InputText:AppCompatEditText {
     }
 
     private fun textValidateEmail(emailText: String) {
-//        val layout = getTextInputLayout()
-//        if (text.isNotValidEmail()) {
-//            layout?.let {
-//                it.apply {
-//                    error = context.getString(
-//                        R.string.field_no_valid,
-//                        context.getString(R.string.email)
-//                    )
-//                    isErrorEnabled = true
-//                }
-//            }
-//        } else {
-//            layout?.let {
-//                it.apply {
-//                    error = null
-//                    isErrorEnabled = false
-//                }
-//            }
-//        }
+        val layout = getTextInputLayout()
+        if (emailText.isNotValidEmail()) {
+            layout?.let {
+                it.apply {
+                    error = context.getString(
+                        R.string.field_no_valid,
+                        context.getString(R.string.email)
+                    )
+                    isErrorEnabled = true
+                }
+            }
+        } else {
+            layout?.let {
+                it.apply {
+                    error = null
+                    isErrorEnabled = false
+                }
+            }
+        }
     }
 
     private fun getTextInputLayout(): TextInputLayout?{

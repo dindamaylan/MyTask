@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339288037877",
+    "project_id": "mytask-bfbe7",
+    "storage_bucket": "mytask-bfbe7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339288037877:android:14285c543a21e86afa68bc",
+        "android_client_info": {
+          "package_name": "com.scrumteam.mytask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339288037877-0l02eu1vs6he1e6roqh6ug4qv22ebm0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHqE2pKVN11Mel7DjJmRdA3fojjHvDhtI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339288037877-0l02eu1vs6he1e6roqh6ug4qv22ebm0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

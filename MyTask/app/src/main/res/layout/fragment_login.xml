@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.auth.login.LoginFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/root_padding">
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/welcome"
+            android:textAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_welcome_desc"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/welcome_desc"
+            android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
+
+        <ImageView
+            android:id="@+id/iv_login"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ilus_login"
+            android:contentDescription="@string/ilus_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome_desc" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/email"
+            android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+            app:layout_constraintTop_toBottomOf="@id/iv_login" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edt_email"
+            style="@style/Widget.MyTask.LayoutInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_layout_text_to_title"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_email"
+            app:shapeAppearance="@style/ShapeAppearance.MyTask.LargeComponent">
+
+            <com.scrumteam.mytask.custom.components.InputText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_height_text_edit"
+                android:hint="@string/hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/email"
+            android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+            app:layout_constraintTop_toBottomOf="@id/layout_edt_email" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edt_password"
+            style="@style/Widget.MyTask.LayoutInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_layout_text_to_title"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_password">
+
+            <com.scrumteam.mytask.custom.components.InputText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_height_text_edit"
+                android:hint="@string/hint_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:paddingHorizontal="30dp"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/forgot_password"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_edt_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.MyTask.Button.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/masuk"
+            app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_divider"
+            app:layout_constraintBottom_toBottomOf="@id/tv_or"
+            app:layout_constraintEnd_toStartOf="@id/tv_or"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_or" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_divider"
+            app:layout_constraintBottom_toBottomOf="@id/tv_or"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_or"
+            app:layout_constraintTop_toTopOf="@id/tv_or" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/masuk_dengan"
+            android:textColor="@color/placeholder"
+            android:textAppearance="@style/TextAppearance.MyTask.Small.Regular"
+            app:layout_constraintEnd_toStartOf="@id/divider_2"
+            app:layout_constraintStart_toEndOf="@id/divider_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_with_google"
+            style="@style/Widget.MyTask.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/ic_google"
+            android:text="@string/google"
+            app:layout_constraintTop_toBottomOf="@id/tv_or" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/belum_punya_akun"
+            android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_register"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_login_with_google"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/daftar"
+            android:textAppearance="@style/TextAppearance.MyTask.Button"
+            android:textColor="@color/primary"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_title_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_title_register" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

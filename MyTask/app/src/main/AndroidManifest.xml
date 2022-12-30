@@ -12,6 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTask"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".ui.onboard.OnBoardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

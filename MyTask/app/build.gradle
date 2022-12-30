@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -13,8 +15,8 @@ android {
         applicationId "com.scrumteam.mytask"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,13 +34,23 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
+//    ktx
     implementation 'androidx.core:core-ktx:1.9.0'
+
+//    appCompat
     implementation 'androidx.appcompat:appcompat:1.5.1'
+
+//    material design
     implementation 'com.google.android.material:material:1.7.0'
+
+//    constraint layout
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
 //    Shimmer
@@ -46,6 +58,15 @@ dependencies {
 
 //    Splash Screen
     implementation "androidx.core:core-splashscreen:1.0.0"
+
+//    Lottie
+    implementation "com.airbnb.android:lottie:5.2.0"
+
+//    Bottom sheet
+    implementation 'com.afollestad.material-dialogs:bottomsheets:3.3.0'
+
+//    Coil image
+    implementation "io.coil-kt:coil:2.2.2"
 
 //    Dots indicator
     implementation "com.tbuonomo:dotsindicator:4.3"
@@ -89,6 +110,14 @@ dependencies {
 //     Hilt
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+//    firebase
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
 
 //    Glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'

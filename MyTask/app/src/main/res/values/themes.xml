@@ -14,8 +14,8 @@
 
         <!-- Customize your theme here. -->
         <item name="alertDialogTheme">@style/ThemeOverlay.MyTask.AlertDialog</item>
-        <item name="bottomSheetDialogTheme">@style/Widget.DiTalent.BottomSheetDialog</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.DiTalent.MaterialAlertDialog</item>
+        <item name="bottomSheetDialogTheme">@style/Widget.MyTask.BottomSheetDialog</item>
+<!--        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MyTask.MaterialAlertDialog</item>-->
     </style>
 
     <!--    Splash Theme-->
