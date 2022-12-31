@@ -5,7 +5,6 @@ import android.os.Build
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
@@ -48,7 +47,7 @@ class InputText:AppCompatEditText {
 
     private fun textValidatePassword(passwordText: String) {
         val layout = getTextInputLayout()
-        if (text!!.length < 6 && text!!.isNotEmpty()) {
+        if (passwordText.length < 6 && passwordText.isNotEmpty()) {
             layout?.let {
                 it.apply {
                     error = context.getString(R.string.password_rules_length)

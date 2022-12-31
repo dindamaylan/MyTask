@@ -6,42 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".ui.onboard.OnBoardActivity">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_padding"
+        android:layout_marginEnd="@dimen/root_padding"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/skip"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Medium"
+        app:layout_constraintBottom_toTopOf="@id/vp_onboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_onboard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/indicator_onboard"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/indicator_on_board"
+        app:layout_constraintTop_toBottomOf="@id/btn_skip" />
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/indicator_onboard"
+        android:id="@+id/indicator_on_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:dotsColor="@color/stroke"
-        app:dotsCornerRadius="6dp"
-        app:dotsSize="10dp"
-        app:dotsSpacing="27dp"
-        android:layout_marginBottom="90dp"
-        android:visibility="visible"
+        android:layout_marginBottom="@dimen/margin_bottom_boarding"
+        app:dotsColor="#E1E1E1"
+        app:dotsCornerRadius="@dimen/rounded_dots"
+        app:dotsSize="@dimen/size_dots"
+        app:dotsSpacing="@dimen/spacing_dots"
+        app:dotsWidthFactor="1"
+        app:layout_constraintBottom_toTopOf="@id/btn_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vp_onboard"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:selectedDotColor="@color/primary" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_start"
         style="@style/Widget.MyTask.Button.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:layout_marginHorizontal="@dimen/root_padding"
-        android:layout_marginBottom="70dp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/margin_bottom_boarding"
         android:text="@string/mulai_sekarang"
+        android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vp_onboard" />
+        app:layout_constraintTop_toBottomOf="@id/indicator_on_board" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(private val userRepo: UserRepo) : ViewModel() {
+class LoginViewModel (private val userRepo: UserRepo) : ViewModel() {
 
     private val _loginUiState: MutableLiveData<UiState> = MutableLiveData()
     val loginUiState: LiveData<UiState> = _loginUiState
