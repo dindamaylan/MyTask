@@ -22,6 +22,10 @@
     <!--Main-->
     <dimen name="size_height_bottom_nav">56dp</dimen>
 
+    <!--Home-->
+    <dimen name="size_avatar">50dp</dimen>
+    <dimen name="bottom_margin_header">-32dp</dimen>
+
     <!--    rounded-->
     <dimen name="rounded_large">200dp</dimen>
     <dimen name="rounded_medium">16dp</dimen>

@@ -219,11 +219,9 @@
         <item name="colorOnSurface">@color/primary</item>
     </style>
 
-
-    <!-- Search view  -->
-    <!--    <style name="Widget.DiTalent.SearchView" parent="Widget.AppCompat.SearchView">-->
-    <!--        <item name="queryBackground">@null</item>-->
-    <!--        <item name="iconifiedByDefault">false</item>-->
-    <!--        <item name="android:background">@drawable/shape_bg_search</item>-->
-    <!--    </style>-->
+    <!--Image Circle-->
+    <style name="ShapeAppearance.Image.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
