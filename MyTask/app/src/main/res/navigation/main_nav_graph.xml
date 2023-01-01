@@ -3,24 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/home_nav">
+
     <fragment
-        android:id="@+id/loginFragment"
+        android:id="@+id/login_nav"
         android:name="com.scrumteam.mytask.ui.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
+
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_home_nav"
-            app:destination="@id/home_nav"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_login_nav_to_registerFragment"
+            app:destination="@id/register_nav" />
     </fragment>
+
+    <action
+        android:id="@+id/action_to_login_nav"
+        app:destination="@id/login_nav"
+        app:popUpTo="@id/main_nav_graph"
+        app:popUpToInclusive="true" />
+
     <fragment
-        android:id="@+id/registerFragment"
+        android:id="@+id/register_nav"
         android:name="com.scrumteam.mytask.ui.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
