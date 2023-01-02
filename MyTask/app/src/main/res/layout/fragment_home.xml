@@ -49,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_title_greeting"
         app:shapeAppearance="@style/ShapeAppearance.Image.Circle"
+        android:elevation="4dp"
         tools:src="@tools:sample/avatars" />
 
     <androidx.appcompat.widget.SearchView
