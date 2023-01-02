@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.GoogleAuthProvider
+import com.scrumteam.mytask.R
 import com.scrumteam.mytask.custom.components.LoadingDialog
 import com.scrumteam.mytask.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -140,8 +141,10 @@ class LoginFragment : Fragment() {
 
 
     private fun navigateToRegister() {
-        val direction = LoginFragmentDirections.actionLoginNavToRegisterFragment()
-        findNavController().navigate(direction)
+//        val direction =
+//            LoginFragmentDirections.actionLoginNavToRegisterFragment()
+//        findNavController().navigate(direction)
+        findNavController().navigate(R.id.action_login_nav_to_registerFragment)
     }
 
     override fun onDestroyView() {
