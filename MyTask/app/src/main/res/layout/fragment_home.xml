@@ -43,8 +43,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="@dimen/size_avatar"
-        android:layout_height="@dimen/size_avatar"
+        android:layout_width="@dimen/size_avatar_medium"
+        android:layout_height="@dimen/size_avatar_medium"
         android:layout_marginEnd="@dimen/root_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_title_greeting"

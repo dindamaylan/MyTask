@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.google.firebase.auth.FirebaseUser
+import com.scrumteam.mytask.R
 import com.scrumteam.mytask.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,9 +44,12 @@ class HomeFragment : Fragment() {
     private fun setupViewUser(firebaseUser: FirebaseUser) {
         binding.apply {
             tvUsername.text = firebaseUser.displayName
-            if (firebaseUser.photoUrl != null){
-                ivAvatar.load(firebaseUser.photoUrl)
+            val avatar = if (firebaseUser.photoUrl != null) {
+                firebaseUser.photoUrl
+            } else {
+                R.drawable.avatar_1
             }
+            ivAvatar.load(avatar)
         }
 
     }

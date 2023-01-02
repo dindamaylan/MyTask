@@ -141,10 +141,9 @@ class LoginFragment : Fragment() {
 
 
     private fun navigateToRegister() {
-//        val direction =
-//            LoginFragmentDirections.actionLoginNavToRegisterFragment()
-//        findNavController().navigate(direction)
-        findNavController().navigate(R.id.action_login_nav_to_registerFragment)
+        val direction =
+            LoginFragmentDirections.actionLoginNavToRegisterFragment()
+        findNavController().navigate(direction)
     }
 
     override fun onDestroyView() {

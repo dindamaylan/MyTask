@@ -20,6 +20,10 @@
     <string name="masuk">Masuk</string>
     <string name="daftar">Buat Akun</string>
     <string name="google">Google</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="change_password">Ganti Kata sandi</string>
+    <string name="logout">Keluar</string>
+    <string name="complete">Selesai</string>
 
     <!--    placeholder-->
     <string name="search">Search</string>
@@ -63,11 +67,15 @@
     <string name="illus_login">illus_login</string>
 
     <!--    Confirmation-->
-
+    <string name="confirmation_title_logout">Konfirmasi keluar</string>
+    <string name="confirmation_desc_logout">Setelah kamu keluar, kamu tidak bisa membuat tugas dan tidak mendapatkan notifikasi. Apakah yakin ingin keluar?</string>
 
     <!--    State-->
     <string name="field_no_valid">%s tidak valid</string>
     <string name="password_rules_length">Kata sandi harus setidaknya 6 karakter</string>
+    <string name="password_invalid">Password tidak cocok</string>
+    <string name="password_successfully_change">Password berhasil diperbarui!</string>
+    <string name="password_failed_change">Password tidak berhasil diperbarui!</string>
 
     <!--    Massage-->
     <string name="text_result_register_success">Berhasil register</string>
@@ -88,5 +96,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tambah_task">Tambah task</string>
+    <string name="warning">Warning</string>
+    <string name="ya">Ya</string>
+    <string name="tidak">Tidak</string>
+    <string name="password_before">Kata sandi saat ini</string>
+    <string name="hint_password_before">Masukan kata sandi saat ini</string>
+    <string name="password_now">Kata sandi baru</string>
+    <string name="confirmation_password_now">Konfirmasi kata sandi baru</string>
+    <string name="hint_password_now">Masukan kata sandi baru</string>
+    <string name="hint_password_now_confirm">Masukan ulang kata sandi baru</string>
+    <string name="avatar">Avatar</string>
 
 </resources>

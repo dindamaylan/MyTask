@@ -203,7 +203,7 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
-    <style name="Widget.MyTask.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="Theme.MyTask.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ThemeOverlay.MyTask.BottomSheetDialog</item>
     </style>
 
@@ -223,5 +223,11 @@
     <style name="ShapeAppearance.Image.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!--Snackbar-->
+    <style name="Widget.MyTask.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

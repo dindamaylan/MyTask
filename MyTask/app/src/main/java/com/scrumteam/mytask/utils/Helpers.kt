@@ -7,8 +7,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.scrumteam.mytask.R
 
 object Helpers {
-    fun String.isNotValidEmail() =
-        this.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     fun handlingException(exception: Throwable): Int {
         return when (exception) {
