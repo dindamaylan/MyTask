@@ -1,93 +1,87 @@
 package com.scrumteam.mytask.ui.auth.login
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseUser
-import com.scrumteam.mytask.data.model.User
-import com.scrumteam.mytask.data.repo.auth.UserRepo
-import com.scrumteam.mytask.utils.UiState
-import com.scrumteam.mytask.utils.Result
+import com.scrumteam.mytask.data.repository.auth.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LoginViewModel (private val userRepo: UserRepo) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    private val _loginUiState: MutableLiveData<UiState> = MutableLiveData()
-    val loginUiState: LiveData<UiState> = _loginUiState
+    val currentUser = authRepository.currentUser.asLiveData()
 
-    private val _logoutUiState: MutableLiveData<UiState> = MutableLiveData()
-    val logoutUiState: LiveData<UiState> = _logoutUiState
+    private val _loginState: MutableStateFlow<LoginUiState> = MutableStateFlow(LoginUiState())
+    val loginState: LiveData<LoginUiState> = _loginState.asLiveData()
 
-    val currentUser: LiveData<FirebaseUser> = userRepo.currentUser.asLiveData()
-
-    val getUser: LiveData<User> = Transformations.switchMap(currentUser) {
-        userRepo.getUser(it.uid).asLiveData()
-    }
-
-    val checkUserIsExists: LiveData<Boolean> =
-        Transformations.switchMap(currentUser) {
-            liveData {
-                val result = userRepo.checkUserIsExists(it.uid)
-                emit(result)
-            }
-        }
-
-    fun loginWithGoogle(credential: AuthCredential) {
+    fun loginWithEmailPassword(email: String, password: String) {
         viewModelScope.launch {
-            userRepo.loginWithGoogle(credential).collect { result ->
-                when (result) {
-                    is Result.Success -> _loginUiState.value =
-                        UiState(isSuccess = true, message = result.data)
-                    is Result.Loading -> _loginUiState.value = UiState(isLoading = true)
-                    is Result.Error -> _loginUiState.value =
-                        UiState(isError = true, message = result.uiText)
-                }
+            _loginState.update {
+                it.copy(
+                    isError = false,
+                    isLoading = true,
+                    currentUser = null
+                )
             }
+            authRepository.loginWithEmailPassword(email, password)
+                .onSuccess { currentUser ->
+                    _loginState.update {
+                        it.copy(
+                            isError = false,
+                            isLoading = false,
+                            currentUser = currentUser
+                        )
+                    }
+                }
+                .onFailure {
+                    _loginState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false,
+                            currentUser = null
+                        )
+                    }
+                }
         }
     }
 
-    fun addUser(): LiveData<UiState> = Transformations.switchMap(currentUser) {
-        liveData {
-            userRepo.addUser(it).collect { result ->
-                when (result) {
-                    is Result.Success ->
-                        emit(UiState(isSuccess = true, message = result.data))
-                    is Result.Loading -> emit(UiState(isLoading = true))
-                    is Result.Error ->
-                        emit(UiState(isError = true, message = result.uiText))
-                }
-            }
-        }
-    }
-
-    fun login(email: String, password: String) {
+    fun loginWithCredential(authCredential: AuthCredential) {
         viewModelScope.launch {
-            userRepo.loginWithEmailPassword(email, password).collect { result ->
-                Log.d("TAG", "login: $result")
-                when (result) {
-                    is Result.Success -> _loginUiState.value =
-                        UiState(isSuccess = true, message = result.data)
-                    is Result.Loading -> _loginUiState.value = UiState(isLoading = true)
-                    is Result.Error -> _loginUiState.value =
-                        UiState(isError = true, message = result.uiText)
-                }
+            _loginState.update {
+                it.copy(
+                    isError = false,
+                    isLoading = true,
+                    currentUser = null
+                )
             }
+            authRepository.loginWithCredential(authCredential)
+                .onSuccess { currentUser ->
+                    _loginState.update {
+                        it.copy(
+                            isError = false,
+                            isLoading = false,
+                            currentUser = currentUser
+                        )
+                    }
+                }
+                .onFailure {
+                    _loginState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false,
+                            currentUser = null
+                        )
+                    }
+                }
         }
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            userRepo.logout().collect { result ->
-                when (result) {
-                    is Result.Success -> _logoutUiState.value =
-                        UiState(isSuccess = true, message = result.data)
-                    is Result.Loading -> _logoutUiState.value = UiState(isLoading = true)
-                    is Result.Error -> _logoutUiState.value =
-                        UiState(isError = true, message = result.uiText)
-                }
-            }
-        }
-    }
 }

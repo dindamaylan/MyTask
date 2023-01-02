@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "339288037877-e2qm2g1q7t5ahg9foftup74kr92en33b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scrumteam.mytask",
+            "certificate_hash": "4534cd46556df98305c7adc9897dd6bab1f9840e"
+          }
+        },
+        {
           "client_id": "339288037877-0l02eu1vs6he1e6roqh6ug4qv22ebm0s.apps.googleusercontent.com",
           "client_type": 3
         }

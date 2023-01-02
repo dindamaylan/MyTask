@@ -34,7 +34,6 @@
         android:src="@drawable/ic_add_24"
         android:visibility="gone"
         app:elevation="2dp"
-        app:showMotionSpec="@anim/decelerate_cubic"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />

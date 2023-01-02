@@ -34,6 +34,7 @@
     <string name="hint_password">Masukkan Kata Sandi</string>
     <string name="hint_nama_depan">Masukkan Nama Depan</string>
     <string name="hint_nama_belakang">Masukkan Nama Belakang</string>
+    <string name="hint_search_task">Cari Tugas</string>
 
     <!--    Title-->
     <string name="email">Email</string>
