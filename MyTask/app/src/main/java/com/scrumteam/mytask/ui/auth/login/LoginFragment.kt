@@ -10,6 +10,11 @@ import androidx.navigation.fragment.findNavController
 import com.scrumteam.mytask.R
 import com.scrumteam.mytask.custom.components.LoadingDialog
 import com.scrumteam.mytask.databinding.FragmentLoginBinding
+import com.scrumteam.mytask.ui.auth.AuthActivity
+import com.scrumteam.mytask.utils.Helpers.isNotValidEmail
+import com.scrumteam.mytask.utils.UiText
+import com.scrumteam.mytask.utils.hideSoftKeyboard
+import com.scrumteam.mytask.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +24,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding as FragmentLoginBinding
 
     private lateinit var loadingDialog: LoadingDialog
+    private lateinit var authAct: AuthActivity
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -36,7 +42,11 @@ class LoginFragment : Fragment() {
 
         binding.apply {
             btnLogin.setOnClickListener {
-                navigateToHome()
+                setToLogin()
+//                navigateToHome()
+            }
+            btnLoginWithGoogle.setOnClickListener {
+                authAct.signInWithGoogle()
             }
             tvRegister.setOnClickListener {
                 navigateToRegister()
@@ -44,9 +54,62 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun navigateToHome() {
-        findNavController().navigate(R.id.action_loginFragment_to_home_nav)
+    private fun setToLogin() {
+        val email = binding.edtEmail.text.toString().trim()
+        val password = binding.edtPassword.text.toString().trim()
+
+        if (email.isBlank()) {
+            binding.layoutEdtEmail.apply {
+                error = getString(
+                    R.string.text_message_error_field_cant_empty,
+                    getString(R.string.email)
+                )
+                isErrorEnabled = true
+            }
+        }
+        if (password.isBlank()) {
+            binding.layoutEdtPassword.apply {
+                error = getString(
+                    R.string.text_message_error_field_cant_empty,
+                    getString(R.string.password)
+                )
+                isErrorEnabled = true
+            }
+        }
+        val loginCorrect = !email.isNotValidEmail() && password.length >= 6
+
+        if (loginCorrect) {
+            loginViewModel.apply {
+                login(email, password)
+                loginUiState.observe(viewLifecycleOwner) { state ->
+                    when {
+                        state.isSuccess -> {
+                            loadingDialog.hideDialog()
+                        }
+                        state.isLoading -> {
+                            loadingDialog.showDialog()
+                        }
+                        state.isError -> {
+                            loadingDialog.hideDialog()
+                            showSnackBar(
+                                requireActivity(),
+                                getString((state.message as UiText.StringResource).id),
+                                binding.root
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        requireActivity().currentFocus?.let {
+            hideSoftKeyboard(requireContext(), it)
+        }
     }
+
+//    private fun navigateToHome() {
+//        findNavController().navigate(R.id.action_loginFragment_to_home_nav)
+//    }
 
     private fun navigateToRegister() {
         findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

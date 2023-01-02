@@ -48,7 +48,7 @@ class LoginViewModel (private val userRepo: UserRepo) : ViewModel() {
         }
     }
 
-    fun addUser(role: String): LiveData<UiState> = Transformations.switchMap(currentUser) {
+    fun addUser(): LiveData<UiState> = Transformations.switchMap(currentUser) {
         liveData {
             userRepo.addUser(it).collect { result ->
                 when (result) {
