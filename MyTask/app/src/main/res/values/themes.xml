@@ -10,12 +10,16 @@
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/gray</item>
         <item name="colorSurface">@color/light_blue</item>
+
+        <item name="bottomSheetDialogTheme">@style/Theme.MyTask.BottomSheetDialog</item>
+
+        <item name="snackbarStyle">@style/Widget.MyTask.Snackbar</item>
     </style>
 
     <!--    Splash Theme-->
     <style name="SplashTheme.MyTask" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo_text</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash_screen</item>
         <item name="windowSplashScreenAnimationDuration">1500</item>
         <item name="postSplashScreenTheme">@style/Theme.MyTask</item>
     </style>
