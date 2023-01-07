@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/small_padding"
+    app:cardBackgroundColor="@color/gray_translucent"
+    app:cardCornerRadius="@dimen/small_padding"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/check_task"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:button="@drawable/selector_check"
+            app:buttonTint="@color/selector_check"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+            app:layout_constraintBottom_toTopOf="@id/iv_icon_time"
+            app:layout_constraintEnd_toStartOf="@id/btn_more"
+            app:layout_constraintStart_toEndOf="@id/check_task"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Melakukan Brainstorming denganclient dan membuat timeline" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_icon_time"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_title_task"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_task"
+            app:tint="@color/blue_task" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_date_with_category_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.MyTask.Small.Regular.LH20"
+            app:layout_constraintBottom_toBottomOf="@id/iv_icon_time"
+            app:layout_constraintEnd_toStartOf="@id/btn_more"
+            app:layout_constraintStart_toEndOf="@id/iv_icon_time"
+            app:layout_constraintTop_toTopOf="@id/iv_icon_time"
+            tools:text="12/05/2022 - 12:30 - Kerja" />
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button"
+            android:src="@drawable/ic_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_title_task"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

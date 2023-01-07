@@ -133,6 +133,17 @@
         <item name="errorTextColor">@color/danger</item>
     </style>
 
+    <style name="Widget.MyTask.LayoutInputText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="hintEnabled">false</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.MyTask.LargeComponent</item>
+        <item name="boxBackgroundColor">@color/light_blue</item>
+        <item name="boxStrokeErrorColor">@color/danger</item>
+        <item name="errorTextAppearance">@style/TextAppearance.MyTask.Body.Regular</item>
+        <item name="startIconTint">@color/placeholder</item>
+        <item name="errorIconTint">@color/danger</item>
+        <item name="errorTextColor">@color/danger</item>
+    </style>
+
     <!--    Button-->
     <style name="Widget.MyTask.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAppearance">@style/TextAppearance.MyTask.H4.Medium</item>
@@ -163,7 +174,7 @@
     <!--    Shape Apperance-->
     <style name="ShapeAppearance.MyTask.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/rounded_large</item>
+        <item name="cornerSize">@dimen/rounded_extra_large</item>
     </style>
 
     <style name="ShapeAppearance.MyTask.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
@@ -229,5 +240,38 @@
     <style name="Widget.MyTask.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--Date-->
+    <style name="ThemeOverlay.MyTask.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="shapeAppearanceSmallComponent">
+            @style/ShapeAppearance.MyTask.MediumComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.MyTask.MediumComponent
+        </item>
+        <item name="errorIconTint">@color/danger</item>
+        <item name="boxStrokeErrorColor">@color/danger</item>
+        <item name="errorTextColor">@color/white</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        </item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusTopStart">@dimen/rounded_medium</item>
+        <item name="startIconDrawable">@drawable/ic_calendar</item>
+        <item name="errorEnabled">true</item>
+        <item name="startIconTint">@color/light_blue</item>
+    </style>
+
+    <!--Time-->
+    <style name="ThemeOverlay.MyTask.TimePicker" parent="@style/ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyTask.MediumComponent
+        </item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/rounded_medium</item>
+        <item name="boxCornerRadiusTopStart">@dimen/rounded_medium</item>
+        <item name="colorSurface">?android:colorBackgroundFloating</item>
     </style>
 </resources>

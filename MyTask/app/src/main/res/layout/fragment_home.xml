@@ -1,68 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.home.HomeFragment">
 
-    <FrameLayout
-        android:id="@+id/frame_header"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/bottom_margin_header"
-        android:background="@drawable/frame_header_home"
-        app:layout_constraintBottom_toBottomOf="@id/search_task"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_title_greeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/root_padding"
-        android:layout_marginTop="@dimen/root_padding"
-        android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/tv_username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/welcome_login" />
+        <FrameLayout
+            android:id="@+id/frame_header"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/bottom_margin_header"
+            android:background="@drawable/frame_header_home"
+            app:layout_constraintBottom_toBottomOf="@id/search_task"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/root_padding"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/iv_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_greeting"
-        tools:text="Kylian Mbappe" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_greeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/root_padding"
+            android:layout_marginTop="@dimen/root_padding"
+            android:text="@string/welcome_login"
+            android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tv_username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_avatar"
-        android:layout_width="@dimen/size_avatar_medium"
-        android:layout_height="@dimen/size_avatar_medium"
-        android:layout_marginEnd="@dimen/root_padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_title_greeting"
-        app:shapeAppearance="@style/ShapeAppearance.Image.Circle"
-        tools:src="@tools:sample/avatars" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_greeting"
+            tools:text="Kylian Mbappe" />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/root_padding"
-        android:layout_marginTop="@dimen/extra_medium_padding"
-        android:background="@drawable/shape_bg_search"
-        app:iconifiedByDefault="false"
-        app:layout_constraintTop_toBottomOf="@id/tv_username"
-        app:queryBackground="@android:color/transparent"
-        app:queryHint="@string/hint_search_task"
-        app:searchIcon="@drawable/ic_search" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/size_avatar_medium"
+            android:layout_height="@dimen/size_avatar_medium"
+            android:layout_marginEnd="@dimen/root_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_greeting"
+            app:shapeAppearance="@style/ShapeAppearance.Image.Circle"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/extra_medium_padding"
+            android:background="@drawable/shape_bg_search"
+            app:iconifiedByDefault="false"
+            app:layout_constraintTop_toBottomOf="@id/tv_username"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="@string/hint_search_task"
+            app:searchIcon="@drawable/ic_search" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_category_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/root_padding"
+            android:text="@string/category"
+            android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
+            app:layout_constraintBottom_toTopOf="@id/cat_task_personal"
+            app:layout_constraintTop_toBottomOf="@id/frame_header" />
+
+        <include
+            android:id="@+id/cat_task_personal"
+            layout="@layout/item_row_card_cat_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/margin_layout_text_to_title"
+            app:layout_constraintBottom_toTopOf="@id/cat_task_work"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_category_task" />
+
+
+        <include
+            android:id="@+id/cat_task_work"
+            layout="@layout/item_row_card_cat_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/margin_layout_text_to_title"
+            app:layout_constraintBottom_toTopOf="@id/cat_task_school"
+            app:layout_constraintTop_toBottomOf="@id/cat_task_personal" />
+
+        <include
+            android:id="@+id/cat_task_school"
+            layout="@layout/item_row_card_cat_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/margin_layout_text_to_title"
+            app:layout_constraintTop_toBottomOf="@id/cat_task_work" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title_you_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/root_padding"
+            android:layout_marginTop="@dimen/root_padding"
+            android:text="@string/you_task"
+            android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
+            app:layout_constraintTop_toBottomOf="@id/cat_task_school" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="true"
+            android:overScrollMode="always"
+            android:paddingHorizontal="@dimen/small_extra_padding"
+            android:paddingVertical="@dimen/small_padding"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_you_task"
+            tools:listitem="@layout/item_row_task" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

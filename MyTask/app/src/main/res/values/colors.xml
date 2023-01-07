@@ -10,8 +10,13 @@
     <color name="danger">#FF5757</color>
     <color name="warning">#FF9B3F</color>
 
+    <color name="blue_task">#70A9EC</color>
+    <color name="purple_task">#675DD9</color>
+    <color name="orange_task">#FF9B3F</color>
+
     <color name="black">#565656</color>
     <color name="gray">#7C7C7C</color>
+    <color name="gray_translucent">#EDEDED</color>
 
     <color name="white">#FFFFFF</color>
 

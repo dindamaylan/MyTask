@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/large_padding">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_create_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_task"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/title_task"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_title_task"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_create_task" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_title_task"
+        style="@style/Widget.MyTask.LayoutInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:endIconMode="custom"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_task">
+
+        <com.scrumteam.mytask.custom.components.InputText
+            android:id="@+id/edt_title_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/hint_title_task"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_category_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/category"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_category_task"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_title_task" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_category_task"
+        style="@style/Widget.MyTask.LayoutInputText.Dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:endIconTint="@color/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_category_task">
+
+        <AutoCompleteTextView
+            android:id="@+id/dd_category_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/personal"
+            android:inputType="none"
+            android:imeOptions="actionNext"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_date_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/date"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_date_task"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_category_task" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_date_task"
+        style="@style/Widget.MyTask.LayoutInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:endIconDrawable="@drawable/ic_calendar"
+        app:endIconMode="custom"
+        app:endIconTint="@color/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_date_task">
+
+        <com.scrumteam.mytask.custom.components.InputText
+            android:id="@+id/pick_date_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/hint_date_task"
+            android:inputType="none"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_time_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/time"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_time_task"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_date_task" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_time_task"
+        style="@style/Widget.MyTask.LayoutInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:endIconDrawable="@drawable/ic_time"
+        app:endIconMode="custom"
+        app:endIconTint="@color/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_time_task">
+
+        <com.scrumteam.mytask.custom.components.InputText
+            android:id="@+id/pick_time_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/hint_time_task"
+            android:inputType="none"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_create_task"
+        style="@style/Widget.MyTask.Button.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_padding"
+        android:layout_marginBottom="@dimen/medium_padding"
+        android:text="@string/create_task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_time_task" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

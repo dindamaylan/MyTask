@@ -4,12 +4,13 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseUser
@@ -18,6 +19,7 @@ import com.scrumteam.mytask.databinding.BottomSheetChangePasswordBinding
 import com.scrumteam.mytask.databinding.BottomSheetEditProfileBinding
 import com.scrumteam.mytask.databinding.BottomSheetLogoutBinding
 import com.scrumteam.mytask.databinding.FragmentProfileBinding
+import com.scrumteam.mytask.ui.MainActivity
 import com.scrumteam.mytask.utils.StatusSnackBar
 import com.scrumteam.mytask.utils.showSnackbar
 import com.scrumteam.mytask.utils.splitFullName
@@ -44,6 +46,13 @@ class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by viewModels()
 
     private var currentUser: FirebaseUser? = null
+
+    private lateinit var act: MainActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        act = activity as MainActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -85,7 +94,7 @@ class ProfileFragment : Fragment() {
             val avatar = if (firebaseUser.photoUrl != null) {
                 firebaseUser.photoUrl
             } else {
-                R.drawable.avatar_1
+                R.drawable.ic_avatar
             }
             ivAvatar.load(avatar)
         }
@@ -136,6 +145,7 @@ class ProfileFragment : Fragment() {
             btnAccept.setOnClickListener {
                 profileViewModel.logout()
                 dialog.cancel()
+                act.navigateToLogin(findNavController())
             }
             btnCancel.setOnClickListener {
                 dialog.cancel()
@@ -226,8 +236,8 @@ class ProfileFragment : Fragment() {
                 ivAvatar.load(avatar)
 
                 user.displayName?.let {
-//                    edtFirstName.setText(splitFullName(it)[0]?:"")
-//                    edtLastName.setText(splitFullName(it)[1])
+                    edtFirstName.setText(splitFullName(it)[0])
+                    edtLastName.setText(splitFullName(it)[1])
                 }
             }
 

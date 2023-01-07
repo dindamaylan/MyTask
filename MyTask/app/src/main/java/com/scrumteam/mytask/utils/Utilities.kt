@@ -5,10 +5,17 @@ import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.scrumteam.mytask.R
+
+enum class StatusSnackBar {
+    SUCCESS,
+    WARNING,
+    DANGER
+}
 
 fun View.margin(
     left: Float? = null,
@@ -104,8 +111,32 @@ fun Fragment.showSnackbar(
     )
 }
 
-enum class StatusSnackBar {
-    SUCCESS,
-    WARNING,
-    DANGER
+fun hideSoftKeyboard(context: Context, view: View) {
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun showSoftKeyboard(context: Context, view: View) {
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.showSoftInput(view, 0)
+}
+
+open class Event<out T>(private val content: T) {
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    var hasBeenHandled = false
+        private set
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+    fun peekContent(): T = content
 }

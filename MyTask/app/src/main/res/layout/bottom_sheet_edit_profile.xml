@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/large_padding">
+    android:paddingHorizontal="@dimen/root_padding"
+    android:paddingVertical="@dimen/large_padding">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_title_edit_profile"
