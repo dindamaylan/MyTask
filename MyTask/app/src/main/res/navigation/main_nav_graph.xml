@@ -31,7 +31,17 @@
         android:id="@+id/home_nav"
         android:name="com.scrumteam.mytask.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_nav_to_personal_nav"
+            app:destination="@id/personal_nav" />
+        <action
+            android:id="@+id/action_home_nav_to_school_nav"
+            app:destination="@id/school_nav" />
+        <action
+            android:id="@+id/action_home_nav_to_work_nav"
+            app:destination="@id/work_nav" />
+    </fragment>
     <fragment
         android:id="@+id/calendar_nav"
         android:name="com.scrumteam.mytask.ui.calendar.CalendarFragment"
@@ -47,4 +57,19 @@
         android:name="com.scrumteam.mytask.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/personal_nav"
+        android:name="com.scrumteam.mytask.ui.personal.PersonalFragment"
+        android:label="fragment_personal"
+        tools:layout="@layout/fragment_personal" />
+    <fragment
+        android:id="@+id/school_nav"
+        android:name="com.scrumteam.mytask.ui.school.SchoolFragment"
+        android:label="fragment_school"
+        tools:layout="@layout/fragment_school" />
+    <fragment
+        android:id="@+id/work_nav"
+        android:name="com.scrumteam.mytask.ui.work.WorkFragment"
+        android:label="fragment_work"
+        tools:layout="@layout/fragment_work" />
 </navigation>

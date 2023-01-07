@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -19,6 +20,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.scrumteam.mytask.R
 import com.scrumteam.mytask.custom.components.LoadingDialog
 import com.scrumteam.mytask.databinding.FragmentLoginBinding
+import com.scrumteam.mytask.utils.hideSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,9 +33,7 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var googleSignInClient: GoogleSignInClient
 
-    private lateinit var loadingDialog: LoadingDialog
-
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,20 +44,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loginViewModel.loginState.observe(viewLifecycleOwner) { state ->
-            when {
-                state.isError -> Toast.makeText(
-                    requireContext(), "Error", Toast.LENGTH_SHORT
-                ).show()
-                state.isLoading -> Toast.makeText(
-                    requireContext(), "Loading", Toast.LENGTH_SHORT
-                ).show()
-                state.currentUser != null -> Toast.makeText(
-                    requireContext(), "Success", Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
 
         binding.apply {
             tvRegister.setOnClickListener {
@@ -112,6 +98,9 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             loginViewModel.loginWithEmailPassword(emailText, passwordText)
+            requireActivity().currentFocus?.let {
+                hideSoftKeyboard(requireContext(), it)
+            }
         }
 
     }

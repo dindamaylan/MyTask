@@ -14,6 +14,10 @@
         <item name="bottomSheetDialogTheme">@style/Theme.MyTask.BottomSheetDialog</item>
 
         <item name="snackbarStyle">@style/Widget.MyTask.Snackbar</item>
+
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MyTask.DatePicker</item>
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.MyTask.TimePicker</item>
+
     </style>
 
     <!--    Splash Theme-->

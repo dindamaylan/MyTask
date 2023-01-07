@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.scrumteam.mytask.databinding.FragmentRegisterBinding
+import com.scrumteam.mytask.utils.hideSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +20,7 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding as FragmentRegisterBinding
 
-    private val registerViewModel: RegisterViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,25 +33,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        registerViewModel.registerState.observe(viewLifecycleOwner){ state ->
-            when {
-                state.isError -> Toast.makeText(
-                    requireContext(), "Error", Toast.LENGTH_SHORT
-                ).show()
-                state.isLoading -> Toast.makeText(
-                    requireContext(), "Loading", Toast.LENGTH_SHORT
-                ).show()
-                state.currentUser != null -> Toast.makeText(
-                    requireContext(), "Success", Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
         binding.tvLogin.setOnClickListener {
             navigateToBack()
         }
-
 
         setupRegister()
     }
@@ -116,6 +102,9 @@ class RegisterFragment : Fragment() {
                 emailText,
                 passwordText
             )
+            requireActivity().currentFocus?.let {
+                hideSoftKeyboard(requireContext(), it)
+            }
         }
     }
 
