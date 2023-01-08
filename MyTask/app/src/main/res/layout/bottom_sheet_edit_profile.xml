@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/root_padding"
+    android:paddingVertical="@dimen/large_padding">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_profile"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/size_avatar_large"
+        android:layout_height="@dimen/size_avatar_large"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:contentDescription="@string/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.Image.Circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_edit_profile"
+        tools:src="@drawable/avatar_1" />
+
+    <RadioGroup
+        android:id="@+id/rg_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/iv_avatar">
+
+        <RadioButton
+            android:id="@+id/btn_avatar_1"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginEnd="@dimen/small_padding"
+            android:background="@drawable/avatar_1"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/btn_avatar_2"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginHorizontal="@dimen/small_padding"
+            android:background="@drawable/avatar_2"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/btn_avatar_3"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginHorizontal="@dimen/small_padding"
+            android:background="@drawable/avatar_3"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/btn_avatar_4"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginHorizontal="@dimen/small_padding"
+            android:background="@drawable/avatar_4"
+            android:button="@null" />
+
+
+        <RadioButton
+            android:id="@+id/btn_avatar_5"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginHorizontal="@dimen/small_padding"
+            android:background="@drawable/avatar_5"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/btn_avatar_6"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginStart="@dimen/small_padding"
+            android:background="@drawable/avatar_6"
+            android:button="@null" />
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/nama_depan"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_first_name"
+        app:layout_constraintTop_toBottomOf="@id/rg_avatar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_first_name"
+        style="@style/Widget.MyTask.LayoutInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:layout_constraintBottom_toTopOf="@id/tv_title_last_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_first_name"
+        app:startIconDrawable="@drawable/ic_user">
+
+        <com.scrumteam.mytask.custom.components.InputText
+            android:id="@+id/edt_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_nama_depan"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_layout_text_to_title"
+        android:text="@string/nama_belakang"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Regular"
+        app:layout_constraintBottom_toTopOf="@id/layout_edt_last_name"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_first_name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edt_last_name"
+        style="@style/Widget.MyTask.LayoutInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        app:layout_constraintBottom_toTopOf="@id/btn_accept"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_last_name"
+        app:startIconDrawable="@drawable/ic_user">
+
+        <com.scrumteam.mytask.custom.components.InputText
+            android:id="@+id/edt_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_nama_belakang"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:padding="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_accept"
+        style="@style/Widget.MyTask.Button.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_padding"
+        android:layout_marginBottom="@dimen/medium_padding"
+        android:text="@string/complete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_edt_last_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

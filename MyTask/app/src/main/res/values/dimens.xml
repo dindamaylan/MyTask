@@ -3,6 +3,7 @@
     <!--root-->
     <dimen name="root_padding">20dp</dimen>
     <dimen name="small_padding">8dp</dimen>
+    <dimen name="small_extra_padding">12dp</dimen>
     <dimen name="medium_padding">16dp</dimen>
     <dimen name="extra_medium_padding">24dp</dimen>
     <dimen name="large_padding">32dp</dimen>
@@ -23,11 +24,13 @@
     <dimen name="size_height_bottom_nav">56dp</dimen>
 
     <!--Home-->
-    <dimen name="size_avatar">50dp</dimen>
+    <dimen name="size_avatar_small">40dp</dimen>
+    <dimen name="size_avatar_medium">50dp</dimen>
+    <dimen name="size_avatar_large">70dp</dimen>
     <dimen name="bottom_margin_header">-32dp</dimen>
 
     <!--    rounded-->
-    <dimen name="rounded_large">200dp</dimen>
+    <dimen name="rounded_extra_large">30dp</dimen>
     <dimen name="rounded_medium">16dp</dimen>
 
     <dimen name="elevation_small">1dp</dimen>

@@ -20,6 +20,10 @@
     <string name="masuk">Masuk</string>
     <string name="daftar">Buat Akun</string>
     <string name="google">Google</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="change_password">Ganti Kata sandi</string>
+    <string name="logout">Keluar</string>
+    <string name="complete">Selesai</string>
 
     <!--    placeholder-->
     <string name="search">Search</string>
@@ -63,11 +67,15 @@
     <string name="illus_login">illus_login</string>
 
     <!--    Confirmation-->
-
+    <string name="confirmation_title_logout">Konfirmasi keluar</string>
+    <string name="confirmation_desc_logout">Setelah kamu keluar, kamu tidak bisa membuat tugas dan tidak mendapatkan notifikasi. Apakah yakin ingin keluar?</string>
 
     <!--    State-->
     <string name="field_no_valid">%s tidak valid</string>
     <string name="password_rules_length">Kata sandi harus setidaknya 6 karakter</string>
+    <string name="password_invalid">Password tidak cocok</string>
+    <string name="password_successfully_change">Password berhasil diperbarui!</string>
+    <string name="password_failed_change">Password tidak berhasil diperbarui!</string>
 
     <!--    Massage-->
     <string name="text_result_register_success">Berhasil register</string>
@@ -76,17 +84,44 @@
     <string name="text_result_login_failed">Gagal login</string>
     <string name="text_result_logout_success">Berhasil logout</string>
     <string name="text_result_logout_failed">Gagal logout</string>
-
     <string name="text_message_error_server">Maaf, ada kesalahan dari server</string>
     <string name="text_message_error_internet_connection">Tidak dapat menjangkau server, periksa koneksi internet Anda!</string>
     <string name="text_message_error_something">Maaf, ada keselahan tidak terduga</string>
     <string name="text_message_error_auth_something_wrong">Hmm, email/password kamu salah.</string>
-
     <string name="text_message_error_field_cant_empty">%s tidak boleh kosong</string>
+    <string name="text_message_success_create_task">Tugas baru berhasil dibuat!</string>
+    <string name="text_message_failure_create_task">Tugas baru gagal dibuat!</string>
 
     <string name="please_wait">Mohon Tunggu…</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tambah_task">Tambah task</string>
+    <string name="warning">Warning</string>
+    <string name="ya">Ya</string>
+    <string name="tidak">Tidak</string>
+    <string name="password_before">Kata sandi saat ini</string>
+    <string name="hint_password_before">Masukan kata sandi saat ini</string>
+    <string name="password_now">Kata sandi baru</string>
+    <string name="confirmation_password_now">Konfirmasi kata sandi baru</string>
+    <string name="hint_password_now">Masukan kata sandi baru</string>
+    <string name="hint_password_now_confirm">Masukan ulang kata sandi baru</string>
+    <string name="avatar">Avatar</string>
+    <string name="category">Kategori</string>
+
+    <!--Category Task-->
+    <string name="personal">Pribadi</string>
+    <string name="work">Kerja</string>
+    <string name="school">Sekolah</string>
+    <string name="total_task">%d Tugas</string>
+    <string name="you_task">Tugas Anda</string>
+    <string name="create_task">Buat Tugas</string>
+    <string name="title_task">Judul Tugas</string>
+    <string name="hint_title_task">Masukan judul tugas</string>
+    <string name="date">Tanggal</string>
+    <string name="time">Waktu</string>
+
+    <string name="setting_date">Atur Tanggal</string>
+    <string name="setting_time">Atur Waktu</string>
+    <string name="button">Button</string>
+    <string name="hint_date_task">Masukan tanggal tugas</string>
+    <string name="hint_time_task">Masukan waktu tugas</string>
 
 </resources>

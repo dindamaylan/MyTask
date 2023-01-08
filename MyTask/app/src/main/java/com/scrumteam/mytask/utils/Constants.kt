@@ -3,13 +3,13 @@ package com.scrumteam.mytask.utils
 object Constants {
     const val SETTINGS_PREFERENCES = "settings_preferences"
     const val FIRST_RUN_ONBOARD = "is_first_run_on_board"
-    const val FIRST_RUN_HOME = "is_first_run_home"
-
-    const val USERS_COLLECTION = "users"
-
-    const val TASK_CATEGORY = "task_category"
-
-    const val NAME = "name"
 
     const val NULL = "null"
+
+    const val TASK_REF = "Task"
+    const val USER_ID = "userId"
+    const val CREATE_AT = "createAt"
+
+    const val DATE_PICKER_TAG = "date_picker_TAG"
+    const val TIME_PICKER_TAG = "time_picker_TAG"
 }

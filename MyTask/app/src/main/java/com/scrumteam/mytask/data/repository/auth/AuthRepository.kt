@@ -19,4 +19,8 @@ interface AuthRepository {
         email: String,
         password: String
     ): Result<FirebaseUser>
+
+    suspend fun logout()
+
+    suspend fun changePassword(newPassword: String): Result<FirebaseUser>
 }

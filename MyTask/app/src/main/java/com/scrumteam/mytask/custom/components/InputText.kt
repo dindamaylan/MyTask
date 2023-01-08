@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import com.scrumteam.mytask.R
-import com.scrumteam.mytask.utils.Helpers.isNotValidEmail
+import com.scrumteam.mytask.utils.isNotValidEmail
 
 class InputText:AppCompatEditText {
     constructor(context: Context) : super(context) {

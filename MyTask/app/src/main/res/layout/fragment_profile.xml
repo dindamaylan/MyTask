@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/frame_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/akun" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/bottom_margin_header"
+        android:background="@drawable/frame_header_home"
+        app:layout_constraintBottom_toBottomOf="@id/tv_email"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/size_avatar_large"
+        android:layout_height="@dimen/size_avatar_large"
+        android:layout_marginTop="@dimen/large_padding"
+        app:layout_constraintBottom_toTopOf="@id/tv_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.Image.Circle"
+        tools:src="@tools:sample/avatars" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:textAppearance="@style/TextAppearance.MyTask.H5.Medium"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/tv_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+        tools:text="Kylian Mbappe" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_username"
+        tools:text="mbappe@gmail.com" />
+
+    <include
+        android:id="@+id/item_edit_profile"
+        layout="@layout/item_rom_card_action_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/root_padding"
+        app:layout_constraintTop_toBottomOf="@id/frame_header" />
+
+
+    <include
+        android:id="@+id/item_change_password"
+        layout="@layout/item_rom_card_action_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/medium_padding"
+        app:layout_constraintTop_toBottomOf="@id/item_edit_profile" />
+
+    <include
+        android:id="@+id/item_logout"
+        layout="@layout/item_rom_card_action_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/medium_padding"
+        app:layout_constraintTop_toBottomOf="@id/item_change_password" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
