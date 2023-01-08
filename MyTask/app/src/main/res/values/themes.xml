@@ -18,6 +18,7 @@
         <item name="materialCalendarTheme">@style/ThemeOverlay.MyTask.DatePicker</item>
         <item name="materialTimePickerTheme">@style/ThemeOverlay.MyTask.TimePicker</item>
 
+        <item name="android:popupMenuStyle">@style/Widget.MyTask.PopupMenu</item>
     </style>
 
     <!--    Splash Theme-->

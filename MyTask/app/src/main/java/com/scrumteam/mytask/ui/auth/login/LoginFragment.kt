@@ -12,13 +12,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.GoogleAuthProvider
-import com.scrumteam.mytask.R
-import com.scrumteam.mytask.custom.components.LoadingDialog
 import com.scrumteam.mytask.databinding.FragmentLoginBinding
 import com.scrumteam.mytask.utils.hideSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint

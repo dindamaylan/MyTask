@@ -22,10 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_padding"
-        android:text="@string/confirmation_title_logout"
+        android:text="@string/confirmation_checked_task"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.MyTask.H3.Medium"
         android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.MyTask.H3.Medium"
         app:layout_constraintBottom_toTopOf="@id/tv_desc_confirmation"
         app:layout_constraintTop_toBottomOf="@id/iv_warning" />
 
@@ -34,10 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/confirmation_desc_logout"
+        android:textColor="@color/gray"
+        android:text="@string/confirmation_desc_checked_task"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
-        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@id/divider_1"
         app:layout_constraintTop_toBottomOf="@id/tv_title_confirmation" />
 

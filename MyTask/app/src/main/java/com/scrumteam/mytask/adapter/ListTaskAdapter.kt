@@ -3,16 +3,24 @@ package com.scrumteam.mytask.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.scrumteam.mytask.R
+import com.scrumteam.mytask.data.mapper.getLocalDateFormat
+import com.scrumteam.mytask.data.mapper.toLocalDateTime
 import com.scrumteam.mytask.data.model.task.Task
 import com.scrumteam.mytask.databinding.ItemRowTaskBinding
+import com.scrumteam.mytask.utils.Constants.DATE_FORMATTER
+import com.scrumteam.mytask.utils.Constants.TIME_FORMATTER
 import com.scrumteam.mytask.utils.mergeDateTimeWithCategoryTask
 import com.scrumteam.mytask.utils.toTaskCodeRes
 
 class ListTaskAdapter(
-    private val onClickItem: (Task) -> Unit
+    private val onActionItem: (task: Task, actionView: ImageButton) -> Unit,
+    private val onCompleteItem: (Task) -> Unit
 ) : ListAdapter<Task, ListTaskAdapter.ListTaskViewHolder>(DiffCallback) {
     private lateinit var ctx: Context
 
@@ -24,12 +32,44 @@ class ListTaskAdapter(
                 tvTitleTask.text = task.title
                 tvDateWithCategoryTask.text =
                     mergeDateTimeWithCategoryTask(
-                        task.date,
-                        task.time,
+                        getLocalDateFormat(DATE_FORMATTER, task.date.toLocalDateTime()),
+                        getLocalDateFormat(TIME_FORMATTER, task.time.toLocalDateTime()),
                         task.category.toTaskCodeRes(ctx)
                     )
-                checkTask.isChecked = task.isCheck
-                root.isEnabled = task.isCheck
+                checkTask.apply {
+                    isChecked = task.isChecked
+                    isEnabled = !task.isChecked
+                }
+
+                if (task.isChecked) {
+                    root.setCardForegroundColor(
+                        ContextCompat.getColorStateList(
+                            ctx,
+                            R.color.gray_translucent
+                        )
+                    )
+
+                }
+
+                checkTask.setOnCheckedChangeListener { view, isChecked ->
+                    onCompleteItem(task.copy(isChecked = isChecked))
+                    view.isChecked = task.isChecked
+                    if (task.isChecked) {
+                        root.setCardForegroundColor(
+                            ContextCompat.getColorStateList(
+                                ctx,
+                                R.color.gray_translucent
+                            )
+                        )
+                    }
+                }
+
+                btnMore.apply {
+                    isEnabled = !task.isChecked
+                    setOnClickListener {
+                        onActionItem(task, btnMore)
+                    }
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.scrumteam.mytask.data.repository.auth
 
+import android.net.Uri
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -69,6 +70,29 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun logout() {
         auth.signOut()
         googleSignInClient.signOut().await()
+    }
+
+    override suspend fun updateProfile(
+        firstName: String,
+        lastName: String,
+        avatarUri: Uri?
+    ): Result<FirebaseUser> {
+        return try {
+            auth.currentUser?.let {
+                val username = mergeFullName(firstName, lastName)
+
+                val profileUpdate = userProfileChangeRequest {
+                    displayName = username
+                    avatarUri?.let { uri ->
+                        photoUri = uri
+                    }
+                }
+                it.updateProfile(profileUpdate).await()
+                Result.success(it)
+            } ?: Result.failure(FirebaseAuthException("", ""))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     override suspend fun changePassword(newPassword: String): Result<FirebaseUser> {

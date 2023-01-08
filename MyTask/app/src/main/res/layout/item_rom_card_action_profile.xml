@@ -5,7 +5,7 @@
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray_translucent"
+    app:cardBackgroundColor="@color/good_gray"
     app:cardCornerRadius="@dimen/small_padding"
     app:cardElevation="0dp">
 
