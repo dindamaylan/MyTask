@@ -26,20 +26,22 @@ import com.google.android.material.timepicker.TimeFormat
 import com.scrumteam.mytask.MainNavGraphDirections
 import com.scrumteam.mytask.R
 import com.scrumteam.mytask.custom.components.LoadingDialog
+import com.scrumteam.mytask.data.mapper.toInSecond
 import com.scrumteam.mytask.data.model.task.Task
 import com.scrumteam.mytask.data.model.task.TaskCode
 import com.scrumteam.mytask.databinding.ActivityMainBinding
 import com.scrumteam.mytask.databinding.BottomSheetAddTaskBinding
+import com.scrumteam.mytask.databinding.BottomSheetCheckedTaskBinding
+import com.scrumteam.mytask.databinding.BottomSheetDeleteTaskBinding
 import com.scrumteam.mytask.ui.auth.login.LoginViewModel
 import com.scrumteam.mytask.ui.auth.register.RegisterViewModel
 import com.scrumteam.mytask.ui.onboard.OnBoardActivity
 import com.scrumteam.mytask.ui.onboard.OnBoardViewModel
+import com.scrumteam.mytask.utils.*
+import com.scrumteam.mytask.utils.Constants.DATE_FORMATTER
 import com.scrumteam.mytask.utils.Constants.DATE_PICKER_TAG
+import com.scrumteam.mytask.utils.Constants.TIME_FORMATTER
 import com.scrumteam.mytask.utils.Constants.TIME_PICKER_TAG
-import com.scrumteam.mytask.utils.StatusSnackBar
-import com.scrumteam.mytask.utils.getTaskTypes
-import com.scrumteam.mytask.utils.margin
-import com.scrumteam.mytask.utils.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,6 +51,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+import java.util.TimeZone.getTimeZone
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -56,6 +59,12 @@ class MainActivity : AppCompatActivity() {
 
     private var _bindingBottomSheetAddTask: BottomSheetAddTaskBinding? = null
     private val bindingBottomSheetAddTask get() = _bindingBottomSheetAddTask as BottomSheetAddTaskBinding
+
+    private var _bindingBottomSheetDeleteTask: BottomSheetDeleteTaskBinding? = null
+    private val bindingBottomSheetDeleteTaskBinding get() = _bindingBottomSheetDeleteTask as BottomSheetDeleteTaskBinding
+
+    private var _bindingBottomSheetCheckedTask: BottomSheetCheckedTaskBinding? = null
+    private val bindingBottomSheetCheckedTask get() = _bindingBottomSheetCheckedTask as BottomSheetCheckedTaskBinding
 
     private lateinit var navController: NavController
 
@@ -140,20 +149,16 @@ class MainActivity : AppCompatActivity() {
                 when {
                     state.isError -> showSnackbar(
                         binding.root,
-                        getString(R.string.text_message_failure_create_task),
+                        getString((state.message as UiText.StringResource).id),
                         StatusSnackBar.DANGER
                     )
                     state.isSuccess -> showSnackbar(
                         binding.root,
-                        getString(R.string.text_message_success_create_task),
+                        getString((state.message as UiText.StringResource).id),
                         StatusSnackBar.SUCCESS
                     )
                 }
             }
-        }
-
-        binding.fabTask.setOnClickListener {
-            setupBottomSheetAddTask()
         }
     }
 
@@ -164,11 +169,15 @@ class MainActivity : AppCompatActivity() {
                 R.id.home_nav,
                 R.id.work_nav,
                 R.id.personal_nav,
-                R.id.school_nav -> binding.fabTask.show()
+                R.id.school_nav -> {
+                    binding.fabTask.show()
+                }
 
                 R.id.calendar_nav,
                 R.id.notification_nav,
-                R.id.profile_nav -> binding.fabTask.hide()
+                R.id.profile_nav,
+                R.id.login_nav,
+                R.id.register_nav -> binding.fabTask.hide()
             }
 
             if (destination.id != R.id.home_nav &&
@@ -189,20 +198,46 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomSheetAddTask() {
-        _bindingBottomSheetAddTask = BottomSheetAddTaskBinding.inflate(layoutInflater)
+    fun showBottomSheetTask(
+        isUpdate: Boolean = false,
+        destinationId: Int? = 0,
+        taskId: String = "",
+        userId: String = "",
+        titleTaskNew: String = "",
+        dateTaskNew: LocalDateTime? = null,
+        timeTaskNew: LocalDateTime? = null,
+    ) {
+        binding.fabTask.setOnClickListener {
+            setupBottomSheetAddTask(
+                isUpdate, destinationId, taskId, userId, titleTaskNew, dateTaskNew, timeTaskNew
+            )
+        }
+    }
+
+    fun setupBottomSheetAddTask(
+        isUpdate: Boolean,
+        destinationId: Int? = 0,
+        taskId: String = "",
+        userId: String = "",
+        titleTaskNew: String = "",
+        dateTaskNew: LocalDateTime? = null,
+        timeTaskNew: LocalDateTime? = null
+    ) {
         val dialog = BottomSheetDialog(this)
         dialog.apply {
-            setContentView(bindingBottomSheetAddTask.root)
-            show()
+            if (_bindingBottomSheetAddTask == null) {
+                _bindingBottomSheetAddTask = BottomSheetAddTaskBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetAddTask.root)
+                show()
+            }
         }
 
-        bindingBottomSheetAddTask.btnCreateTask.isEnabled = false
+        bindingBottomSheetAddTask.btnCreateTask.isEnabled = isUpdate
 
-        var titleTaskValue = ""
-        var taskType = TaskCode.PERSONAL
-        var dateTaskValue: LocalDate = LocalDate.of(1970, 1, 1)
-        var timeTaskValue: LocalTime? = null
+        var titleTaskValue = titleTaskNew
+        var taskType: TaskCode
+        var dateTaskValue = dateTaskNew ?: LocalDateTime.now()
+        var timeTaskValue = timeTaskNew ?: LocalDateTime.now()
 
         val titleTask = bindingBottomSheetAddTask.edtTitleTask
         val categoryTask = bindingBottomSheetAddTask.ddCategoryTask
@@ -212,37 +247,68 @@ class MainActivity : AppCompatActivity() {
         val listCategoryTask = getTaskTypes(this)
         val listCategoryTaskAdapter = ArrayAdapter(this, R.layout.item_row_text, listCategoryTask)
 
+
         with(categoryTask) {
-            setAdapter(listCategoryTaskAdapter)
-            title = listCategoryTask.first().toString()
+            val category = when (destinationId) {
+                R.id.home_nav -> {
+                    setAdapter(listCategoryTaskAdapter)
+                    listCategoryTask.first()
+                }
+                R.id.personal_nav -> {
+                    isEnabled = false
+                    listCategoryTask.first()
+                }
+                R.id.work_nav -> {
+                    isEnabled = false
+                    listCategoryTask[1]
+                }
+                R.id.school_nav -> {
+                    isEnabled = false
+                    listCategoryTask[2]
+                }
+                else -> listCategoryTask.first()
+            }
+            title = category.toString()
+            hint = category.toString()
+            taskType = category.codeName
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 taskType = listCategoryTask[position].codeName
             }
         }
 
         val now = LocalDateTime.now()
+
         val startDate = Calendar.getInstance()
         val endDate = Calendar.getInstance()
+
         endDate.set(Calendar.YEAR, endDate.get(Calendar.YEAR) + 1)
         endDate.set(Calendar.DAY_OF_YEAR, endDate.getActualMaximum(Calendar.DAY_OF_YEAR))
         startDate.set(1500, 1, 1)
-        val formatterDate: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        val formatterTime: DateTimeFormatter =
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+
+        val formatterDate: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMATTER)
+        val formatterTime: DateTimeFormatter = DateTimeFormatter.ofPattern(TIME_FORMATTER)
 
         var dateDialog: MaterialDatePicker<Long>? = null
         var timeDialog: MaterialTimePicker? = null
 
         dateTask.setOnClickListener {
             if (dateDialog == null) {
+
                 val constraints = CalendarConstraints.Builder().apply {
                     setStart(startDate.timeInMillis)
                     setEnd(endDate.timeInMillis)
                     setValidator(DateValidatorPointForward.now())
                 }.build()
+
                 dateDialog = MaterialDatePicker.Builder.datePicker().apply {
                     setTitleText(R.string.setting_date)
-                    setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    if (isUpdate) {
+                        setSelection(
+                            dateTaskValue.toInSecond()
+                        )
+                    } else {
+                        setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    }
                     setCalendarConstraints(constraints)
                 }.build()
 
@@ -250,23 +316,14 @@ class MainActivity : AppCompatActivity() {
                     val select = it
                     if (select != null) {
                         val date = Calendar.getInstance()
-                        date.timeZone = TimeZone.getTimeZone("UTC")
+                        date.timeZone = getTimeZone("UTC")
                         date.timeInMillis = select
                         val year = date.get(Calendar.YEAR)
                         val month = date.get(Calendar.MONTH) + 1
                         val day = date.get(Calendar.DAY_OF_MONTH)
-                        dateTaskValue = LocalDate.of(year, month, day)
-                        val todayDate = LocalDate.now()
+                        dateTaskValue = LocalDateTime.of(year, month, day, 0, 0, 0)
 
-                        while (dateTaskValue.isAfter(todayDate)) {
-                            dateTaskValue = LocalDate.of(
-                                todayDate.year - 1,
-                                dateTaskValue.monthValue,
-                                dateTaskValue.dayOfMonth
-                            )
-                        }
-
-                        dateTask.setText(dateTaskValue.format(formatterDate))
+                        dateTask.setText(formatterDate.format(dateTaskValue))
                     }
                 }
                 dateDialog?.show(supportFragmentManager, DATE_PICKER_TAG)
@@ -282,28 +339,29 @@ class MainActivity : AppCompatActivity() {
                 val isSystem24Hour = DateFormat.is24HourFormat(this)
                 val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 
-                timeDialog = MaterialTimePicker.Builder()
-                    .setTimeFormat(clockFormat)
-                    .setHour(now.hour)
-                    .setMinute(now.minute)
-                    .setTitleText(getString(R.string.setting_time))
-                    .build()
+                timeDialog = MaterialTimePicker.Builder().setTimeFormat(clockFormat)
+                    .setHour(timeTaskValue?.hour ?: now.hour)
+                    .setMinute(timeTaskValue?.minute ?: now.minute)
+                    .setTitleText(getString(R.string.setting_time)).build()
 
                 timeDialog?.addOnPositiveButtonClickListener {
                     val pickHour = timeDialog?.hour
                     val pickMinute = timeDialog?.minute
                     if (pickHour != null && pickMinute != null) {
-                        timeTaskValue = LocalTime.of(pickHour, pickMinute)
+                        timeTaskValue = LocalDateTime.of(
+                            dateTaskValue.toLocalDate(),
+                            LocalTime.of(pickHour, pickMinute, 0)
+                        )
 
-                        timeTask.setText(formatterTime.format(timeTaskValue).toString())
+                        timeTask.setText(formatterTime.format(timeTaskValue))
                     }
                 }
 
+                timeDialog?.addOnDismissListener {
+                    timeDialog = null
+                }
+
                 timeDialog?.show(supportFragmentManager, TIME_PICKER_TAG)
-//                lifecycleScope.launch {
-//                    delay(750)
-//                    timeDialog = null
-//                }
             }
         }
 
@@ -335,7 +393,8 @@ class MainActivity : AppCompatActivity() {
                             titleTaskCorrect = true
                         }
                     }
-                    editable === dateTask.editableText -> dateTaskCorrect = true
+                    editable === dateTask.editableText -> dateTaskCorrect =
+                        dateTask.text.toString().isNotEmpty()
                 }
                 bindingBottomSheetAddTask.btnCreateTask.isEnabled =
                     titleTaskCorrect && dateTaskCorrect
@@ -345,18 +404,86 @@ class MainActivity : AppCompatActivity() {
         titleTask.addTextChangedListener(textWatcher)
         dateTask.addTextChangedListener(textWatcher)
 
+        if (isUpdate) {
+            titleTask.setText(titleTaskNew)
+            dateTask.setText(dateTaskNew?.format(formatterDate))
+            timeTaskNew?.let {
+                timeTask.setText(formatterTime.format(it).toString())
+            }
+        }
+
+        dialog.setOnDismissListener {
+            _bindingBottomSheetAddTask = null
+        }
+
         bindingBottomSheetAddTask.btnCreateTask.setOnClickListener {
             val task = Task(
-                id = "",
-                userId = "",
+                id = taskId,
+                userId = userId,
                 titleTaskValue,
                 category = taskType.name,
-                date = dateTaskValue.toString(),
-                time = timeTaskValue.toString(),
-                isCheck = false
+                date = dateTaskValue.toInSecond(),
+                time = timeTaskValue.toInSecond(),
+                isChecked = false
             )
-            mainViewModel.insertTask(task)
+            if (isUpdate) {
+                mainViewModel.updateTask(task)
+            } else {
+                mainViewModel.insertTask(task)
+            }
             dialog.dismiss()
+        }
+    }
+
+    fun setupBottomSheetDeleteTask(action: (() -> Unit)) {
+        val dialog = BottomSheetDialog(this)
+        dialog.apply {
+            if (_bindingBottomSheetDeleteTask == null) {
+                _bindingBottomSheetDeleteTask = BottomSheetDeleteTaskBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetDeleteTaskBinding.root)
+                show()
+            }
+        }
+
+        dialog.setOnDismissListener {
+            _bindingBottomSheetDeleteTask = null
+        }
+
+        bindingBottomSheetDeleteTaskBinding.apply {
+            btnAccept.setOnClickListener {
+                action()
+                dialog.dismiss()
+            }
+            btnCancel.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+    }
+
+    fun setupBottomSheetCheckedTask(action: (() -> Unit)) {
+        val dialog = BottomSheetDialog(this)
+        dialog.apply {
+            if (_bindingBottomSheetCheckedTask == null) {
+                _bindingBottomSheetCheckedTask =
+                    BottomSheetCheckedTaskBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetCheckedTask.root)
+                show()
+            }
+        }
+
+        dialog.setOnDismissListener {
+            _bindingBottomSheetCheckedTask = null
+        }
+
+        bindingBottomSheetCheckedTask.apply {
+            btnAccept.setOnClickListener {
+                action()
+                dialog.dismiss()
+            }
+            btnCancel.setOnClickListener {
+                dialog.dismiss()
+            }
         }
     }
 
@@ -366,15 +493,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome(navController: NavController) {
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.main_nav_graph, true)
-            .setLaunchSingleTop(true)
-            .build()
+        val navOptions =
+            NavOptions.Builder().setPopUpTo(R.id.main_nav_graph, true).setLaunchSingleTop(true)
+                .build()
         navController.navigate(R.id.home_nav, null, navOptions)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _bindingBottomSheetAddTask = null
-    }
 }

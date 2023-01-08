@@ -21,7 +21,7 @@
         android:id="@+id/tv_title_boarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MyTask.H2.SemiBold"
+        android:textAppearance="@style/TextAppearance.MyTask.H3.SemiBold"
         app:layout_constraintBottom_toTopOf="@id/tv_desc_boarding"
         app:layout_constraintTop_toBottomOf="@id/iv_boarding"
         tools:text="@string/onboard_1_1" />
@@ -30,6 +30,7 @@
         android:id="@+id/tv_desc_boarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:layout_marginTop="@dimen/small_padding"
         android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
         app:layout_constraintTop_toBottomOf="@id/tv_title_boarding"

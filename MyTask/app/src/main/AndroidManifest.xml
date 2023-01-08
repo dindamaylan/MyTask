@@ -16,23 +16,20 @@
         android:theme="@style/SplashTheme.MyTask"
         tools:targetApi="31">
         <activity
-            android:name=".AuthActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.onboard.OnBoardActivity"
             android:exported="false"
-            android:theme="@style/Theme.MyTask">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyTask"
+            tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

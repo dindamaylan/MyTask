@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/small_padding"
-    app:cardBackgroundColor="@color/gray_translucent"
+    android:checkable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/good_gray"
     app:cardCornerRadius="@dimen/small_padding"
     app:cardElevation="0dp">
 

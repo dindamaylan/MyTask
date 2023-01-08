@@ -274,4 +274,11 @@
         <item name="boxCornerRadiusTopStart">@dimen/rounded_medium</item>
         <item name="colorSurface">?android:colorBackgroundFloating</item>
     </style>
+
+    <!--Popup menu-->
+    <style name="Widget.MyTask.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@drawable/shape_bg_popup</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/TextAppearance.MyTask.Body.Regular</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/TextAppearance.MyTask.Body.Regular</item>
+    </style>
 </resources>

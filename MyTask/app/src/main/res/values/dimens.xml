@@ -5,8 +5,9 @@
     <dimen name="small_padding">8dp</dimen>
     <dimen name="small_extra_padding">12dp</dimen>
     <dimen name="medium_padding">16dp</dimen>
-    <dimen name="extra_medium_padding">24dp</dimen>
+    <dimen name="medium_extra_padding">24dp</dimen>
     <dimen name="large_padding">32dp</dimen>
+    <dimen name="large_extra_padding">52dp</dimen>
 
     <!--Boarding-->
     <dimen name="rounded_dots">20dp</dimen>
