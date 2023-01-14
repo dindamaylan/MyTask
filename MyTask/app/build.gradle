@@ -67,6 +67,9 @@ dependencies {
     // Bottom sheet
     implementation "com.afollestad.material-dialogs:bottomsheets:3.3.0"
 
+    // Calendar
+    implementation "com.kizitonwose.calendar:view:2.1.1"
+
     // Coil
     implementation "io.coil-kt:coil:2.2.2"
 
@@ -98,8 +101,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
 
+    // Utils
+    implementation "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3"
+
     // Basic Test
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

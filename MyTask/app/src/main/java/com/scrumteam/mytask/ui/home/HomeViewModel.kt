@@ -1,6 +1,5 @@
 package com.scrumteam.mytask.ui.home
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.scrumteam.mytask.R
 import com.scrumteam.mytask.data.mapper.toInSecond

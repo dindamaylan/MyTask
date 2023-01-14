@@ -44,7 +44,7 @@ class SchoolFragment : Fragment() {
             },
             onCompleteItem = {
                 act.setupBottomSheetCheckedTask {
-                    schoolViewModel.checkedTask(it)
+                    schoolViewModel.checkedTask(it.copy(checked = true))
                 }
             }
         )
@@ -79,7 +79,10 @@ class SchoolFragment : Fragment() {
             when {
                 state.isError -> Log.d("TAG", "Task: Error")
                 state.isLoading -> Log.d("TAG", "Task: Loading")
-                else -> listTaskAdapter.submitList(state.schoolTask)
+                else -> {
+                    listTaskAdapter.submitList(state.schoolTask)
+                    binding.recyclerTask.post { binding.recyclerTask.scrollToPosition(0) }
+                }
             }
         }
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_category_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/root_padding"
+        android:text="@string/category"
+        android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
+        app:layout_constraintBottom_toTopOf="@id/cat_task_personal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/cat_task_personal"
+        layout="@layout/item_row_card_cat_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/margin_layout_text_to_title"
+        app:layout_constraintBottom_toTopOf="@id/cat_task_work"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_category_task" />
+
+
+    <include
+        android:id="@+id/cat_task_work"
+        layout="@layout/item_row_card_cat_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/margin_layout_text_to_title"
+        app:layout_constraintBottom_toTopOf="@id/cat_task_school"
+        app:layout_constraintTop_toBottomOf="@id/cat_task_personal" />
+
+    <include
+        android:id="@+id/cat_task_school"
+        layout="@layout/item_row_card_cat_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/margin_layout_text_to_title"
+        app:layout_constraintTop_toBottomOf="@id/cat_task_work" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_you_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/root_padding"
+        android:layout_marginTop="@dimen/root_padding"
+        android:text="@string/you_task"
+        android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
+        app:layout_constraintTop_toBottomOf="@id/cat_task_school" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

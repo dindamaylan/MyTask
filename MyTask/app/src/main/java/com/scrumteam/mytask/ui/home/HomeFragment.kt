@@ -1,5 +1,7 @@
 package com.scrumteam.mytask.ui.home
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +29,7 @@ import com.scrumteam.mytask.utils.UiText
 import com.scrumteam.mytask.utils.getTotalTaskByCategory
 import com.scrumteam.mytask.utils.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -37,6 +41,8 @@ class HomeFragment : Fragment() {
     private lateinit var listTaskAdapter: ListTaskAdapter
     private lateinit var act: MainActivity
 
+    private var tasksHome: List<Task> = emptyList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         act = activity as MainActivity
@@ -46,7 +52,7 @@ class HomeFragment : Fragment() {
             },
             onCompleteItem = {
                 act.setupBottomSheetCheckedTask {
-                    homeViewModel.checkedTask(it)
+                    homeViewModel.checkedTask(it.copy(checked = true))
                 }
             }
         )
@@ -74,14 +80,11 @@ class HomeFragment : Fragment() {
         homeViewModel.taskState.observe(viewLifecycleOwner) { state ->
             if (!state.isError) {
                 setupCategoryTask(state.tasks)
+                tasksHome = state.tasks
             }
         }
 
-        homeViewModel.taskFilterState.observe(viewLifecycleOwner) { state ->
-            if (!state.isError) {
-                listTaskAdapter.submitList(state.tasks)
-            }
-        }
+        loadFilterTask()
 
         homeViewModel.taskCheckedState.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { state ->
@@ -102,6 +105,18 @@ class HomeFragment : Fragment() {
 
         act.showBottomSheetTask(destinationId = findNavController().currentDestination?.id)
         setupRecyclerTask()
+        setupSearchTask()
+        setupHandleKeyboard()
+
+
+    }
+
+    private fun loadFilterTask(){
+        homeViewModel.taskFilterState.observe(viewLifecycleOwner) { state ->
+            if (!state.isError) {
+                listTaskAdapter.submitList(state.tasks)
+            }
+        }
     }
 
     private fun setupRecyclerTask() {
@@ -125,7 +140,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCategoryTask(tasks: List<Task>) {
-        binding.catTaskPersonal.apply {
+        binding.layoutCategoryTask.catTaskPersonal.apply {
             root.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue_task))
             root.setOnClickListener { navigateToPersonalTask() }
             ivImageTask.setImageResource(R.drawable.illus_personal)
@@ -134,7 +149,7 @@ class HomeFragment : Fragment() {
                 getString(R.string.total_task, tasks.getTotalTaskByCategory(TaskCode.PERSONAL))
         }
 
-        binding.catTaskWork.apply {
+        binding.layoutCategoryTask.catTaskWork.apply {
             root.setCardBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -148,7 +163,7 @@ class HomeFragment : Fragment() {
                 getString(R.string.total_task, tasks.getTotalTaskByCategory(TaskCode.WORK))
         }
 
-        binding.catTaskSchool.apply {
+        binding.layoutCategoryTask.catTaskSchool.apply {
             root.setCardBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
@@ -195,6 +210,50 @@ class HomeFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun setupSearchTask() {
+        val searchManager = act.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        binding.searchTask.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(act.componentName))
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (!query.isNullOrEmpty()) {
+                        val result = tasksHome.filter { task -> task.title.contains(query) }
+                        if (result.isEmpty()) {
+                            showSnackbar(
+                                binding.root,
+                                getString(R.string.search_result_not_found),
+                                StatusSnackBar.WARNING
+                            )
+                            binding.layoutCategoryTask.root.visibility = View.VISIBLE
+                        } else {
+                            binding.layoutCategoryTask.root.visibility = View.GONE
+                            listTaskAdapter.submitList(result)
+                        }
+                    }
+                    binding.searchTask.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()){
+                        loadFilterTask()
+                        binding.layoutCategoryTask.root.visibility = View.VISIBLE
+                    }
+                    return false
+                }
+
+            })
+        }
+    }
+
+    private fun setupHandleKeyboard() {
+        KeyboardVisibilityEvent.setEventListener(act, viewLifecycleOwner, listener = { isOpen ->
+            if (!isOpen) {
+                binding.searchTask.clearFocus()
+            }
+        })
     }
 
     private fun navigateToPersonalTask() {

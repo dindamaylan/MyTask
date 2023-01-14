@@ -36,36 +36,31 @@ class ListTaskAdapter(
                         getLocalDateFormat(TIME_FORMATTER, task.time.toLocalDateTime()),
                         task.category.toTaskCodeRes(ctx)
                     )
+
                 checkTask.apply {
-                    isChecked = task.isChecked
-                    isEnabled = !task.isChecked
+                    isChecked = task.checked
+                    isEnabled = !task.checked
                 }
 
-                if (task.isChecked) {
+                if (task.checked) {
                     root.setCardForegroundColor(
                         ContextCompat.getColorStateList(
                             ctx,
                             R.color.gray_translucent
                         )
                     )
-
+                }else {
+                    root.setCardForegroundColor(null)
                 }
 
-                checkTask.setOnCheckedChangeListener { view, isChecked ->
-                    onCompleteItem(task.copy(isChecked = isChecked))
-                    view.isChecked = task.isChecked
-                    if (task.isChecked) {
-                        root.setCardForegroundColor(
-                            ContextCompat.getColorStateList(
-                                ctx,
-                                R.color.gray_translucent
-                            )
-                        )
-                    }
+
+                checkTask.setOnClickListener {
+                    checkTask.isChecked = task.checked
+                    onCompleteItem(task)
                 }
 
                 btnMore.apply {
-                    isEnabled = !task.isChecked
+                    isEnabled = !task.checked
                     setOnClickListener {
                         onActionItem(task, btnMore)
                     }
@@ -87,11 +82,11 @@ class ListTaskAdapter(
 
     private companion object DiffCallback : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 }
