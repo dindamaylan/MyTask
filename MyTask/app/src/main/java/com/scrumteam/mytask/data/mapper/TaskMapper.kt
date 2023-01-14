@@ -12,6 +12,10 @@ fun Long.toLocalDateTime(): LocalDateTime {
     return LocalDateTime.ofInstant(Instant.ofEpochSecond(this), ZoneOffset.UTC)
 }
 
+fun Long.toLocalDate(): LocalDate {
+    return Instant.ofEpochSecond(this).atZone(ZoneOffset.UTC).toLocalDate()
+}
+
 
 fun getLocalDateFormat(format: String = DATE_FORMATTER, localDateTime: LocalDateTime): String {
     val formatter = DateTimeFormatter.ofPattern(format)

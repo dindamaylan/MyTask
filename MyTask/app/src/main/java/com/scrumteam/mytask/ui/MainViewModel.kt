@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scrumteam.mytask.R
+import com.scrumteam.mytask.data.model.notification.Notification
 import com.scrumteam.mytask.data.model.task.Task
 import com.scrumteam.mytask.data.repository.auth.AuthRepository
+import com.scrumteam.mytask.data.repository.notification.NotificationRepository
 import com.scrumteam.mytask.data.repository.task.TaskRepository
 import com.scrumteam.mytask.utils.Event
 import com.scrumteam.mytask.utils.UiText
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val taskRepository: TaskRepository
+    private val taskRepository: TaskRepository,
+    private val notificationRepository: NotificationRepository
 ) : ViewModel() {
 
     private val _createTaskState = MutableLiveData<Event<CreateTaskUiState>>()
@@ -71,6 +74,14 @@ class MainViewModel @Inject constructor(
                             )
                         )
                     }
+            }
+        }
+    }
+
+    fun insertNotification(notification: Notification) {
+        viewModelScope.launch {
+            authRepository.currentUser.first()?.let { currentUser ->
+                notificationRepository.insertNotification(notification.copy(userId = currentUser.uid))
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.scrumteam.mytask.ui.personal
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,6 +39,7 @@ class PersonalViewModel @Inject constructor(
             }
             taskRepository.getAllTask().collect { result ->
                 result.onSuccess { tasks ->
+                    Log.d("TAG", "loadPersonalTasks: ${tasks.filter { task -> task.category == TaskCode.PERSONAL.name }}")
                     _personalState.update {
                         it.copy(isError = false,
                             isLoading = false,

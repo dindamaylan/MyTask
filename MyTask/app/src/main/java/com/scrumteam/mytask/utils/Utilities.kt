@@ -9,11 +9,17 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.scrumteam.mytask.R
+import java.time.DayOfWeek
+import java.time.Month
+import java.time.format.TextStyle
+import java.util.*
 
 enum class StatusSnackBar {
     SUCCESS,
@@ -157,4 +163,21 @@ fun Context.getUriFromDrawable(@DrawableRes resId: Int): Uri {
 
 fun Fragment.getUriFromDrawable(@DrawableRes resId: Int): Uri {
     return requireContext().getUriFromDrawable(resId)
+}
+
+fun Context.getColorCompat(@ColorRes color: Int) =
+    ContextCompat.getColor(this, color)
+
+fun TextView.setTextColorRes(@ColorRes color: Int) =
+    setTextColor(context.getColorCompat(color))
+
+fun DayOfWeek.displayText(uppercase: Boolean = false): String {
+    return getDisplayName(TextStyle.SHORT, Locale("id", "ID")).let { value ->
+        if (uppercase) value.uppercase(Locale.ENGLISH) else value
+    }
+}
+
+fun Month.displayText(short: Boolean = true): String {
+    val style = if (short) TextStyle.SHORT else TextStyle.FULL
+    return getDisplayName(style, Locale.ENGLISH)
 }

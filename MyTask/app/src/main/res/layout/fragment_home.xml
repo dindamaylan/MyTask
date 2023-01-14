@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:overScrollMode="never"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,66 +73,22 @@
             app:searchIcon="@drawable/ic_search" />
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title_category_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/root_padding"
-            android:layout_marginTop="@dimen/root_padding"
-            android:text="@string/category"
-            android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
-            app:layout_constraintBottom_toTopOf="@id/cat_task_personal"
-            app:layout_constraintTop_toBottomOf="@id/frame_header" />
-
         <include
-            android:id="@+id/cat_task_personal"
-            layout="@layout/item_row_card_cat_task"
+            android:id="@+id/layout_category_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/root_padding"
-            android:layout_marginTop="@dimen/margin_layout_text_to_title"
-            app:layout_constraintBottom_toTopOf="@id/cat_task_work"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_category_task" />
-
-
-        <include
-            android:id="@+id/cat_task_work"
-            layout="@layout/item_row_card_cat_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/root_padding"
-            android:layout_marginTop="@dimen/margin_layout_text_to_title"
-            app:layout_constraintBottom_toTopOf="@id/cat_task_school"
-            app:layout_constraintTop_toBottomOf="@id/cat_task_personal" />
-
-        <include
-            android:id="@+id/cat_task_school"
-            layout="@layout/item_row_card_cat_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/root_padding"
-            android:layout_marginTop="@dimen/margin_layout_text_to_title"
-            app:layout_constraintTop_toBottomOf="@id/cat_task_work" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title_you_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/root_padding"
-            android:layout_marginTop="@dimen/root_padding"
-            android:text="@string/you_task"
-            android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
-            app:layout_constraintTop_toBottomOf="@id/cat_task_school" />
+            app:layout_constraintTop_toBottomOf="@id/frame_header"
+            layout="@layout/layout_category_task_home" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="true"
-            android:overScrollMode="always"
+            android:overScrollMode="never"
             android:paddingHorizontal="@dimen/small_extra_padding"
             android:paddingVertical="@dimen/small_padding"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_you_task"
+            app:layout_constraintTop_toBottomOf="@id/layout_category_task"
             tools:listitem="@layout/item_row_task" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

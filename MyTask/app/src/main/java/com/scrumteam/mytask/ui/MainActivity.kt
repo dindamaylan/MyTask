@@ -27,6 +27,8 @@ import com.scrumteam.mytask.MainNavGraphDirections
 import com.scrumteam.mytask.R
 import com.scrumteam.mytask.custom.components.LoadingDialog
 import com.scrumteam.mytask.data.mapper.toInSecond
+import com.scrumteam.mytask.data.model.notification.Notification
+import com.scrumteam.mytask.data.model.notification.NotificationCode
 import com.scrumteam.mytask.data.model.task.Task
 import com.scrumteam.mytask.data.model.task.TaskCode
 import com.scrumteam.mytask.databinding.ActivityMainBinding
@@ -45,11 +47,9 @@ import com.scrumteam.mytask.utils.Constants.TIME_PICKER_TAG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 import java.util.TimeZone.getTimeZone
 
@@ -166,25 +166,14 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.home_nav,
-                R.id.work_nav,
-                R.id.personal_nav,
-                R.id.school_nav -> {
+                R.id.home_nav, R.id.work_nav, R.id.personal_nav, R.id.school_nav -> {
                     binding.fabTask.show()
                 }
 
-                R.id.calendar_nav,
-                R.id.notification_nav,
-                R.id.profile_nav,
-                R.id.login_nav,
-                R.id.register_nav -> binding.fabTask.hide()
+                R.id.calendar_nav, R.id.notification_nav, R.id.profile_nav, R.id.login_nav, R.id.register_nav -> binding.fabTask.hide()
             }
 
-            if (destination.id != R.id.home_nav &&
-                destination.id != R.id.calendar_nav &&
-                destination.id != R.id.notification_nav &&
-                destination.id != R.id.profile_nav
-            ) {
+            if (destination.id != R.id.home_nav && destination.id != R.id.calendar_nav && destination.id != R.id.notification_nav && destination.id != R.id.profile_nav) {
                 binding.apply {
                     fragmentContainerView.margin(bottom = 0f)
                     bottomNav.isVisible = false
@@ -321,7 +310,9 @@ class MainActivity : AppCompatActivity() {
                         val year = date.get(Calendar.YEAR)
                         val month = date.get(Calendar.MONTH) + 1
                         val day = date.get(Calendar.DAY_OF_MONTH)
-                        dateTaskValue = LocalDateTime.of(year, month, day, 0, 0, 0)
+                        dateTaskValue = LocalDateTime.of(
+                            year, month, day, now.hour, now.minute, now.second
+                        )
 
                         dateTask.setText(formatterDate.format(dateTaskValue))
                     }
@@ -349,8 +340,7 @@ class MainActivity : AppCompatActivity() {
                     val pickMinute = timeDialog?.minute
                     if (pickHour != null && pickMinute != null) {
                         timeTaskValue = LocalDateTime.of(
-                            dateTaskValue.toLocalDate(),
-                            LocalTime.of(pickHour, pickMinute, 0)
+                            dateTaskValue.toLocalDate(), LocalTime.of(pickHour, pickMinute, 0)
                         )
 
                         timeTask.setText(formatterTime.format(timeTaskValue))
@@ -424,13 +414,27 @@ class MainActivity : AppCompatActivity() {
                 category = taskType.name,
                 date = dateTaskValue.toInSecond(),
                 time = timeTaskValue.toInSecond(),
-                isChecked = false
+                checked = false
+            )
+            val notification = Notification(
+                id = "",
+                userId = userId,
+                type = if (isUpdate) NotificationCode.TASK_UPDATE.name else NotificationCode.TASK_NEW.name,
+                message = if (isUpdate) getString(
+                    R.string.notification_update_task,
+                    titleTaskValue
+                ) else getString(R.string.notification_new_task, titleTaskValue),
+                date = dateTaskValue.toInSecond(),
+                time = timeTaskValue.toInSecond(),
+                read = false,
+                createAt = System.currentTimeMillis()
             )
             if (isUpdate) {
                 mainViewModel.updateTask(task)
             } else {
                 mainViewModel.insertTask(task)
             }
+            mainViewModel.insertNotification(notification)
             dialog.dismiss()
         }
     }

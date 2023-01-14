@@ -6,8 +6,6 @@ import com.scrumteam.mytask.data.model.task.Task
 import com.scrumteam.mytask.data.model.task.TaskCode
 import com.scrumteam.mytask.data.model.task.TaskType
 import com.scrumteam.mytask.utils.Constants.NULL
-import java.time.LocalDate
-import java.util.*
 
 fun getTaskTypes(context: Context): List<TaskType> {
     return listOf(

@@ -43,7 +43,7 @@ class WorkFragment : Fragment() {
             },
             onCompleteItem = {
                 act.setupBottomSheetCheckedTask {
-                    workViewModel.checkedTask(it)
+                    workViewModel.checkedTask(it.copy(checked = true))
                 }
             }
         )
@@ -80,6 +80,7 @@ class WorkFragment : Fragment() {
                 state.isLoading -> Log.d("TAG", "Task: Loading")
                 else -> {
                     listTaskAdapter.submitList(state.taskByWorks)
+                    binding.recyclerTask.post { binding.recyclerTask.scrollToPosition(0) }
                 }
             }
         }

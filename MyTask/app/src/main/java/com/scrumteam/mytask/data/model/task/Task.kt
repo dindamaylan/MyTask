@@ -7,6 +7,6 @@ data class Task(
     val category: String = "",
     val date: Long = 0L,
     val time: Long = 0L,
-    val isChecked: Boolean = false,
+    val checked: Boolean = false,
     val createAt: Long = System.currentTimeMillis()
 )

@@ -24,6 +24,7 @@
     <string name="change_password">Ganti Kata sandi</string>
     <string name="logout">Keluar</string>
     <string name="complete">Selesai</string>
+    <string name="check_reading_all_notification">Tandai Sebagai Membaca</string>
 
     <!--placeholder-->
     <string name="search">Search</string>
@@ -62,9 +63,7 @@
     <string name="loading_state">Tunggu sebentar yaa</string>
 
     <!--Search Not Found-->
-    <string name="search_result_not_found">Search Results Not Found</string>
-    <string name="search_result_n_desc">Search has no results for any data</string>
-    <string name="illus_login">illus_login</string>
+    <string name="search_result_not_found">Pencarian tidak ditemukan!</string>
 
     <!--Confirmation-->
     <string name="confirmation_title_logout">Konfirmasi keluar</string>
@@ -101,6 +100,7 @@
     <string name="text_message_success_update_profile">Profil berhasil diperbarui!</string>
     <string name="text_message_failure_update_profile">Profil gagal diperbarui!</string>
 
+
     <string name="please_wait">Mohon Tunggu…</string>
     <string name="tambah_task">Tambah task</string>
     <string name="warning">Warning</string>
@@ -114,6 +114,13 @@
     <string name="hint_password_now_confirm">Masukan ulang kata sandi baru</string>
     <string name="avatar">Avatar</string>
     <string name="category">Kategori</string>
+    <string name="illus_login">illus_login</string>
+
+    <!--Message Notification-->
+    <string name="notification_new_task">Tugas \"%s\" berhasil dibuat!</string>
+    <string name="notification_update_task">Tugas \"%s\" berhasil diperbarui!</string>
+    <string name="notification_task_deadline_tomorrow">Tugas \"%s\" deadline besok loh!, segera selesaik tugasnya!</string>
+    <string name="notification_task_late_one_week">Tugas \"%s\" sudah terlambat 7 hari!</string>
 
     <!--Category Task-->
     <string name="personal">Pribadi</string>
@@ -134,6 +141,11 @@
     <string name="hint_time_task">Masukan waktu tugas</string>
     <string name="delete">Hapus</string>
     <string name="edit">Edit</string>
+
+    <string name="month_year">%s %s</string>
+    <string name="double_month_year">%s - %s %s</string>
+    <string name="notification">Notifikasi</string>
+    <string name="message_state_notification">Buat Tugas Baru Untuk\nMendapatkan Notifikasi Tugas.</string>
 
 
 </resources>

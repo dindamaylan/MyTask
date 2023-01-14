@@ -2,6 +2,8 @@ package com.scrumteam.mytask.di
 
 import com.scrumteam.mytask.data.repository.auth.AuthRepository
 import com.scrumteam.mytask.data.repository.auth.AuthRepositoryImpl
+import com.scrumteam.mytask.data.repository.notification.NotificationRepository
+import com.scrumteam.mytask.data.repository.notification.NotificationRepositoryImpl
 import com.scrumteam.mytask.data.repository.task.TaskRepository
 import com.scrumteam.mytask.data.repository.task.TaskRepositoryImpl
 import dagger.Binds
@@ -26,4 +28,10 @@ abstract class RepositoryModule {
     abstract fun bindsTaskRepository(
         taskRepositoryImpl: TaskRepositoryImpl
     ): TaskRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsNotificationRepository(
+        notificationRepositoryImpl: NotificationRepositoryImpl
+    ): NotificationRepository
 }
