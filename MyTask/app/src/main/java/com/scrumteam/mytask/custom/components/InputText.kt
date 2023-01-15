@@ -1,7 +1,6 @@
 package com.scrumteam.mytask.custom.components
 
 import android.content.Context
-import android.os.Build
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
@@ -40,9 +39,7 @@ class InputText:AppCompatEditText {
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            setTextAppearance(R.style.TextAppearance_MyTask_Body_Regular)
-        }
+        setTextAppearance(R.style.TextAppearance_MyTask_Body_Regular)
     }
 
     private fun textValidatePassword(passwordText: String) {

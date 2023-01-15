@@ -1,5 +1,6 @@
 package com.scrumteam.mytask.data.repository.auth
 
+import android.net.Uri
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,12 @@ interface AuthRepository {
     ): Result<FirebaseUser>
 
     suspend fun logout()
+
+    suspend fun updateProfile(
+        firstName: String,
+        lastName: String,
+        avatarUri: Uri? = null
+    ): Result<FirebaseUser>
 
     suspend fun changePassword(newPassword: String): Result<FirebaseUser>
 }

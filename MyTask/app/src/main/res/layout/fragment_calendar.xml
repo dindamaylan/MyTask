@@ -1,14 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4FAFF"
+        app:elevation="0.5dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="@string/calendar"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.MyTask.H5.SemiBold"
+            app:titleTextColor="@color/black" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/calendar" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_header"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#F4FAFF"
+            android:layout_marginBottom="-20dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_calendar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_arrow_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/root_padding"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button"
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintEnd_toStartOf="@id/tv_month_year"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_month_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MyTask.H4.Medium"
+            app:layout_constraintBottom_toBottomOf="@id/btn_arrow_before"
+            app:layout_constraintEnd_toStartOf="@id/btn_arrow_after"
+            app:layout_constraintStart_toEndOf="@id/btn_arrow_before"
+            app:layout_constraintTop_toTopOf="@id/btn_arrow_before"
+            tools:text="Desember 2022" />
+
+        <ImageButton
+            android:id="@+id/btn_arrow_after"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/root_padding"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button"
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/btn_arrow_before"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_month_year"
+            app:layout_constraintTop_toTopOf="@id/btn_arrow_before" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/calendar_mode"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/root_padding"
+            android:button="@drawable/selected_calendar_mode"
+            app:layout_constraintBottom_toBottomOf="@id/btn_arrow_before"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_arrow_before" />
+
+        <include
+            android:id="@+id/layout_legend"
+            layout="@layout/calendar_day_legend_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/small_padding"
+            app:layout_constraintTop_toBottomOf="@id/btn_arrow_after" />
+
+        <FrameLayout
+            android:id="@+id/layout_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_extra_padding"
+            app:layout_constraintTop_toBottomOf="@id/layout_legend">
+
+            <com.kizitonwose.calendar.view.CalendarView
+                android:id="@+id/recycler_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cv_dayViewResource="@layout/item_row_calendar_day" />
+
+            <com.kizitonwose.calendar.view.WeekCalendarView
+                android:id="@+id/recycler_week_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cv_dayViewResource="@layout/item_row_calendar_day" />
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_task"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:layout_marginTop="@dimen/root_padding"
+            android:paddingHorizontal="@dimen/small_extra_padding"
+            android:paddingVertical="@dimen/small_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_calendar"
+            tools:listitem="@layout/item_row_task" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,8 +5,8 @@ data class Task(
     val userId: String = "",
     val title: String = "",
     val category: String = "",
-    val date: String = "",
-    val time: String = "",
-    val isCheck: Boolean = false,
+    val date: Long = 0L,
+    val time: Long = 0L,
+    val checked: Boolean = false,
     val createAt: Long = System.currentTimeMillis()
 )

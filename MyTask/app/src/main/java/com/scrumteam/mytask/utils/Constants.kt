@@ -9,7 +9,13 @@ object Constants {
     const val TASK_REF = "Task"
     const val USER_ID = "userId"
     const val CREATE_AT = "createAt"
+    const val DATE = "date"
 
+    const val NOTIFICATION_REF = "Notification"
+    const val READ = "read"
     const val DATE_PICKER_TAG = "date_picker_TAG"
     const val TIME_PICKER_TAG = "time_picker_TAG"
+
+    const val DATE_FORMATTER = "dd/MM/yyyy"
+    const val TIME_FORMATTER = "hh:mm"
 }

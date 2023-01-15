@@ -1,23 +1,23 @@
 package com.scrumteam.mytask.data.mapper
 
-import android.content.Context
-import java.time.LocalDate
-import java.time.LocalTime
+import com.scrumteam.mytask.utils.Constants.DATE_FORMATTER
+import java.time.*
+import java.time.format.DateTimeFormatter
 
-fun String.toLocalDate(): LocalDate? {
-    return try {
-        LocalDate.parse(this)
-    } catch (e: Exception) {
-        if (this.substring(5) == "02-29")
-            LocalDate.parse("${this.substring(0, 5)}03-91")
-        else null
-    }
+fun LocalDateTime.toInSecond(): Long {
+    return this.toEpochSecond(ZoneOffset.UTC)
 }
 
-fun String.toLocalTime(): LocalTime? {
-    return try {
-        LocalTime.parse(this)
-    } catch (e: Exception) {
-        null
-    }
+fun Long.toLocalDateTime(): LocalDateTime {
+    return LocalDateTime.ofInstant(Instant.ofEpochSecond(this), ZoneOffset.UTC)
+}
+
+fun Long.toLocalDate(): LocalDate {
+    return Instant.ofEpochSecond(this).atZone(ZoneOffset.UTC).toLocalDate()
+}
+
+
+fun getLocalDateFormat(format: String = DATE_FORMATTER, localDateTime: LocalDateTime): String {
+    val formatter = DateTimeFormatter.ofPattern(format)
+    return formatter.format(localDateTime)
 }

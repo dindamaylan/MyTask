@@ -1,20 +1,48 @@
 package com.scrumteam.mytask.utils
 
+import android.content.ContentResolver
 import android.content.Context
+import android.net.Uri
+import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.scrumteam.mytask.R
+import java.time.DayOfWeek
+import java.time.Month
+import java.time.format.TextStyle
+import java.util.*
 
 enum class StatusSnackBar {
     SUCCESS,
     WARNING,
     DANGER
+}
+
+open class Event<out T>(private val content: T) {
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    var hasBeenHandled = false
+        private set
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+    fun peekContent(): T = content
 }
 
 fun View.margin(
@@ -123,20 +151,33 @@ fun showSoftKeyboard(context: Context, view: View) {
     inputMethodManager.showSoftInput(view, 0)
 }
 
-open class Event<out T>(private val content: T) {
+fun Context.getUriFromDrawable(@DrawableRes resId: Int): Uri {
+    return Uri.parse(
+        ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(
+            resId
+        ) + '/' + resources.getResourceTypeName(resId) + '/' + resources.getResourceEntryName(
+            resId
+        )
+    )
+}
 
-    @Suppress("MemberVisibilityCanBePrivate")
-    var hasBeenHandled = false
-        private set
+fun Fragment.getUriFromDrawable(@DrawableRes resId: Int): Uri {
+    return requireContext().getUriFromDrawable(resId)
+}
 
-    fun getContentIfNotHandled(): T? {
-        return if (hasBeenHandled) {
-            null
-        } else {
-            hasBeenHandled = true
-            content
-        }
+fun Context.getColorCompat(@ColorRes color: Int) =
+    ContextCompat.getColor(this, color)
+
+fun TextView.setTextColorRes(@ColorRes color: Int) =
+    setTextColor(context.getColorCompat(color))
+
+fun DayOfWeek.displayText(uppercase: Boolean = false): String {
+    return getDisplayName(TextStyle.SHORT, Locale("id", "ID")).let { value ->
+        if (uppercase) value.uppercase(Locale.ENGLISH) else value
     }
+}
 
-    fun peekContent(): T = content
+fun Month.displayText(short: Boolean = true): String {
+    val style = if (short) TextStyle.SHORT else TextStyle.FULL
+    return getDisplayName(style, Locale.ENGLISH)
 }

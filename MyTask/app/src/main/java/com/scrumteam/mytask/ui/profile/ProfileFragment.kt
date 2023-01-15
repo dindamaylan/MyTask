@@ -1,6 +1,7 @@
 package com.scrumteam.mytask.ui.profile
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,10 +21,7 @@ import com.scrumteam.mytask.databinding.BottomSheetEditProfileBinding
 import com.scrumteam.mytask.databinding.BottomSheetLogoutBinding
 import com.scrumteam.mytask.databinding.FragmentProfileBinding
 import com.scrumteam.mytask.ui.MainActivity
-import com.scrumteam.mytask.utils.StatusSnackBar
-import com.scrumteam.mytask.utils.showSnackbar
-import com.scrumteam.mytask.utils.splitFullName
-import com.scrumteam.mytask.utils.validNewPassword
+import com.scrumteam.mytask.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,17 +69,37 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        profileViewModel.changePasswordState.observe(viewLifecycleOwner) { state ->
-            when {
-                state.isError -> showSnackbar(
-                    binding.root, getString(R.string.password_failed_change), StatusSnackBar.DANGER
-                )
-                state.isLoading -> {}
-                state.isSuccess -> showSnackbar(
-                    binding.root,
-                    getString(R.string.password_successfully_change),
-                    StatusSnackBar.SUCCESS
-                )
+        profileViewModel.updateProfileState.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { state ->
+                when {
+                    state.isError -> showSnackbar(
+                        binding.root,
+                        getString(R.string.text_message_failure_update_profile),
+                        StatusSnackBar.DANGER
+                    )
+                    state.isSuccess -> showSnackbar(
+                        binding.root,
+                        getString(R.string.text_message_success_update_profile),
+                        StatusSnackBar.SUCCESS
+                    )
+                }
+            }
+        }
+
+        profileViewModel.changePasswordState.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { state ->
+                when {
+                    state.isError -> showSnackbar(
+                        binding.root,
+                        getString(R.string.password_failed_change),
+                        StatusSnackBar.DANGER
+                    )
+                    state.isSuccess -> showSnackbar(
+                        binding.root,
+                        getString(R.string.password_successfully_change),
+                        StatusSnackBar.SUCCESS
+                    )
+                }
             }
         }
         setupProfile()
@@ -134,31 +152,40 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupBottomSheetLogout() {
-        _bindingBottomSheetLogout = BottomSheetLogoutBinding.inflate(layoutInflater)
         val dialog = BottomSheetDialog(requireContext())
         dialog.apply {
-            setContentView(bindingBottomSheetLogout.root)
-            show()
+            if (_bindingBottomSheetLogout == null) {
+                _bindingBottomSheetLogout = BottomSheetLogoutBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetLogout.root)
+                show()
+            }
+        }
+
+        dialog.setOnDismissListener {
+            _bindingBottomSheetLogout = null
         }
 
         bindingBottomSheetLogout.apply {
             btnAccept.setOnClickListener {
                 profileViewModel.logout()
-                dialog.cancel()
+                dialog.dismiss()
                 act.navigateToLogin(findNavController())
             }
             btnCancel.setOnClickListener {
-                dialog.cancel()
+                dialog.dismiss()
             }
         }
     }
 
     private fun setupBottomSheetChangePassword() {
-        _bindingBottomSheetChangePassword = BottomSheetChangePasswordBinding.inflate(layoutInflater)
         val dialog = BottomSheetDialog(requireContext())
         dialog.apply {
-            setContentView(bindingBottomSheetChangePasswordBinding.root)
-            show()
+            if (_bindingBottomSheetChangePassword == null) {
+                _bindingBottomSheetChangePassword =
+                    BottomSheetChangePasswordBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetChangePasswordBinding.root)
+                show()
+            }
         }
 
         bindingBottomSheetChangePasswordBinding.apply {
@@ -201,10 +228,14 @@ class ProfileFragment : Fragment() {
             passwordNow.addTextChangedListener(textWatcher)
             passwordNowConfirm.addTextChangedListener(textWatcher)
 
+            dialog.setOnDismissListener {
+                _bindingBottomSheetChangePassword = null
+            }
 
             btnAccept.setOnClickListener {
                 if (validNewPassword(
-                        passwordNow.text.toString(), passwordNowConfirm.text.toString()
+                        passwordNow.text.toString(),
+                        passwordNowConfirm.text.toString()
                     )
                 ) {
                     profileViewModel.changeNewPassword(passwordNow.text.toString())
@@ -221,37 +252,131 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupBottomSheetEditProfile() {
-        _bindingBottomSheetEditProfile = BottomSheetEditProfileBinding.inflate(layoutInflater)
         val dialog = BottomSheetDialog(requireContext())
         dialog.apply {
-            setContentView(bindingBottomSheetEditProfileBinding.root)
-            show()
+            if (_bindingBottomSheetEditProfile == null) {
+                _bindingBottomSheetEditProfile =
+                    BottomSheetEditProfileBinding.inflate(layoutInflater)
+                setContentView(bindingBottomSheetEditProfileBinding.root)
+                show()
+            }
         }
 
         bindingBottomSheetEditProfileBinding.apply {
-            btnAccept.isEnabled = false
+
+            var firstNameValue = ""
+            var lastNameValue = ""
+
+            val firstName = edtFirstName
+            val lastName = edtLastName
 
             currentUser?.let { user ->
-                val avatar = if (user.photoUrl != null) user.photoUrl else R.drawable.avatar_1
-                ivAvatar.load(avatar)
+                ivAvatar.apply {
+                    if (user.photoUrl != null) {
+                        load(user.photoUrl)
+                    } else {
+                        load(R.drawable.ic_avatar)
+                        setColorFilter(ContextCompat.getColor(requireContext(), R.color.primary))
+                    }
+                }
 
                 user.displayName?.let {
-                    edtFirstName.setText(splitFullName(it)[0])
-                    edtLastName.setText(splitFullName(it)[1])
+                    firstNameValue = splitFullName(it)[0]
+                    lastNameValue = splitFullName(it)[1]
+
+                    edtFirstName.setText(firstNameValue)
+                    edtLastName.setText(lastNameValue)
                 }
             }
 
+            var firstNameCorrect = firstName.text.toString().isNotEmpty()
+            var lastNameCorrect = lastName.text.toString().isNotEmpty()
 
-            rgAvatar.setOnCheckedChangeListener { _, id ->
-                when (id) {
-                    R.id.btn_avatar_1 -> ivAvatar.load(R.drawable.avatar_1)
-                    R.id.btn_avatar_2 -> ivAvatar.load(R.drawable.avatar_2)
-                    R.id.btn_avatar_3 -> ivAvatar.load(R.drawable.avatar_3)
-                    R.id.btn_avatar_4 -> ivAvatar.load(R.drawable.avatar_4)
-                    R.id.btn_avatar_5 -> ivAvatar.load(R.drawable.avatar_5)
-                    R.id.btn_avatar_6 -> ivAvatar.load(R.drawable.avatar_6)
+            btnAccept.isEnabled = firstNameCorrect && lastNameCorrect
 
+            val textWatcher = object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    when {
+                        editable === firstName.editableText -> {
+                            val firstNameText = firstName.text.toString()
+                            if (firstNameText.isBlank()) {
+                                layoutEdtFirstName.apply {
+                                    error = getString(
+                                        R.string.field_cant_empty,
+                                        getString(R.string.nama_depan)
+                                    )
+                                    isErrorEnabled = true
+                                }
+                                firstNameCorrect = false
+                            } else {
+                                layoutEdtFirstName.apply {
+                                    error = null
+                                    isErrorEnabled = false
+                                }
+                                firstNameCorrect = true
+                                firstNameValue = firstNameText
+                            }
+                        }
+                        editable === lastName.editableText -> {
+                            val lastNameText = lastName.text.toString()
+                            if (lastNameText.isBlank()) {
+                                layoutEdtLastName.apply {
+                                    error = getString(
+                                        R.string.field_cant_empty,
+                                        getString(R.string.nama_belakang)
+                                    )
+                                    isErrorEnabled = false
+                                }
+                                lastNameCorrect = false
+                            } else {
+                                layoutEdtLastName.apply {
+                                    error = null
+                                    isErrorEnabled = false
+                                }
+                                lastNameCorrect = true
+                                lastNameValue = lastNameText
+                            }
+                        }
+                    }
+                    btnAccept.isEnabled = firstNameCorrect && lastNameCorrect
+                }
+            }
+
+            firstName.addTextChangedListener(textWatcher)
+            lastName.addTextChangedListener(textWatcher)
+
+            var avatarDrawable: Int
+            var avatarUri: Uri? = null
+            rgAvatar.setOnCheckedChangeListener { _, id ->
+                avatarDrawable = when (id) {
+                    R.id.btn_avatar_1 -> R.drawable.avatar_1
+                    R.id.btn_avatar_2 -> R.drawable.avatar_2
+                    R.id.btn_avatar_3 -> R.drawable.avatar_3
+                    R.id.btn_avatar_4 -> R.drawable.avatar_4
+                    R.id.btn_avatar_5 -> R.drawable.avatar_5
+                    R.id.btn_avatar_6 -> R.drawable.avatar_6
+                    else -> 0
+                }
+                ivAvatar.apply {
+                    load(avatarDrawable)
+                    colorFilter = null
+                }
+                avatarUri = getUriFromDrawable(avatarDrawable)
+            }
+
+            dialog.setOnDismissListener {
+                _bindingBottomSheetEditProfile = null
+            }
+
+            btnAccept.setOnClickListener {
+                profileViewModel.updateProfileUser(firstNameValue, lastNameValue, avatarUri)
+                dialog.dismiss()
             }
         }
     }
