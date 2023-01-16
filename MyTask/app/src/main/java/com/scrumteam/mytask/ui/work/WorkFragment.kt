@@ -1,7 +1,6 @@
 package com.scrumteam.mytask.ui.work
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -75,12 +75,15 @@ class WorkFragment : Fragment() {
         }
 
         workViewModel.workState.observe(viewLifecycleOwner) { state ->
-            when {
-                state.isError -> Log.d("TAG", "Task: Error")
-                state.isLoading -> Log.d("TAG", "Task: Loading")
-                else -> {
-                    listTaskAdapter.submitList(state.taskByWorks)
-                    binding.recyclerTask.post { binding.recyclerTask.scrollToPosition(0) }
+            if (!state.isError) {
+                val tasks = state.taskByWorks
+                showMessageState(tasks.isEmpty(), state.message)
+                listTaskAdapter.submitList(state.taskByWorks)
+                binding.recyclerTask.post { binding.recyclerTask.scrollToPosition(0) }
+            } else {
+                showMessageState(true, state.message)
+                state.message?.let {
+                    showSnackbar(binding.root, getString((it as UiText.StringResource).id),StatusSnackBar.DANGER)
                 }
             }
         }
@@ -147,6 +150,21 @@ class WorkFragment : Fragment() {
         }
 
 
+    }
+
+    private fun showMessageState(isShow: Boolean, message: UiText? = null) {
+        if (isShow) {
+            binding.recyclerTask.isVisible = false
+            binding.tvPlaceholderState.apply {
+                isVisible = true
+                message?.let {
+                    text = getString((it as UiText.StringResource).id)
+                }
+            }
+        } else {
+            binding.recyclerTask.isVisible = true
+            binding.tvPlaceholderState.isVisible = false
+        }
     }
 
     private fun navigateToBack() {

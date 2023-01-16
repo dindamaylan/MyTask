@@ -1,6 +1,5 @@
 package com.scrumteam.mytask.ui.personal
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,20 +33,25 @@ class PersonalViewModel @Inject constructor(
 
     private fun loadPersonalTasks() {
         viewModelScope.launch {
-            _personalState.update {
-                it.copy(isError = false, isLoading = true, personalTask = emptyList())
-            }
             taskRepository.getAllTask().collect { result ->
                 result.onSuccess { tasks ->
-                    Log.d("TAG", "loadPersonalTasks: ${tasks.filter { task -> task.category == TaskCode.PERSONAL.name }}")
+                    val tasksPersonal =
+                        tasks.filter { task -> task.category == TaskCode.PERSONAL.name }
                     _personalState.update {
-                        it.copy(isError = false,
-                            isLoading = false,
-                            personalTask = tasks.filter { task -> task.category == TaskCode.PERSONAL.name })
+                        it.copy(
+                            isError = false,
+                            message = if (tasksPersonal.isEmpty()) UiText.StringResource(R.string.text_message_data_empty) else null,
+                            personalTask = tasksPersonal
+                        )
                     }
                 }.onFailure {
                     _personalState.update {
-                        it.copy(isError = true, isLoading = false, personalTask = emptyList())
+                        it.copy(
+                            isError = true,
+                            message = UiText.StringResource(R.string.text_message_error_something),
+                            personalTask = emptyList()
+                        )
+
                     }
                 }
             }
@@ -57,22 +61,22 @@ class PersonalViewModel @Inject constructor(
     fun checkedTask(task: Task) {
         viewModelScope.launch {
             taskRepository.updateTask(task).onSuccess {
-                    _personalCheckedState.value = Event(
-                        PersonalCheckedUiState(
-                            isError = false,
-                            isSuccess = true,
-                            message = UiText.StringResource(R.string.text_message_success_complete_task)
-                        )
+                _personalCheckedState.value = Event(
+                    PersonalCheckedUiState(
+                        isError = false,
+                        isSuccess = true,
+                        message = UiText.StringResource(R.string.text_message_success_complete_task)
                     )
-                }.onFailure {
-                    _personalCheckedState.value = Event(
-                        PersonalCheckedUiState(
-                            isError = true,
-                            isSuccess = false,
-                            message = UiText.StringResource(R.string.text_message_failure_complete_task)
-                        )
+                )
+            }.onFailure {
+                _personalCheckedState.value = Event(
+                    PersonalCheckedUiState(
+                        isError = true,
+                        isSuccess = false,
+                        message = UiText.StringResource(R.string.text_message_failure_complete_task)
                     )
-                }
+                )
+            }
 
         }
     }

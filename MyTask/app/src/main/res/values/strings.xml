@@ -100,6 +100,8 @@
     <string name="text_message_success_update_profile">Profil berhasil diperbarui!</string>
     <string name="text_message_failure_update_profile">Profil gagal diperbarui!</string>
 
+    <string name="text_message_data_empty">Tidak ada tugas\nKlik + untuk membuat tugas</string>
+
 
     <string name="please_wait">Mohon Tunggu…</string>
     <string name="tambah_task">Tambah task</string>
