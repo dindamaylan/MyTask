@@ -34,20 +34,25 @@ class SchoolViewModel @Inject constructor(
 
     private fun loadSchoolTasks() {
         viewModelScope.launch {
-            _schoolState.update {
-                it.copy(isError = false, isLoading = true, schoolTask = emptyList())
-            }
             taskRepository.getAllTask().collect { result ->
                 result.onSuccess { tasks ->
+                    val tasksSchool =
+                        tasks.filter { task -> task.category == TaskCode.SCHOOL.name }
                     _schoolState.update {
                         it.copy(
                             isError = false,
-                            isLoading = false,
-                            schoolTask = tasks.filter { task -> task.category == TaskCode.SCHOOL.name })
+                            message = if (tasksSchool.isEmpty()) UiText.StringResource(R.string.text_message_data_empty) else null,
+                            schoolTask = tasksSchool
+                        )
                     }
                 }.onFailure {
                     _schoolState.update {
-                        it.copy(isError = true, isLoading = false, schoolTask = emptyList())
+                        it.copy(
+                            isError = true,
+                            message = UiText.StringResource(R.string.text_message_error_something),
+                            schoolTask = emptyList()
+                        )
+
                     }
                 }
             }

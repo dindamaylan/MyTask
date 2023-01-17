@@ -35,21 +35,25 @@ class WorkViewModel @Inject constructor(
 
     private fun loadWorkTask() {
         viewModelScope.launch {
-            _workState.update {
-                it.copy(isError = false, isLoading = true, taskByWorks = emptyList())
-            }
             taskRepository.getAllTask().collect { result ->
                 result.onSuccess { tasks ->
+                    val tasksWork =
+                        tasks.filter { task -> task.category == TaskCode.WORK.name }
                     _workState.update {
                         it.copy(
                             isError = false,
-                            isLoading = false,
-                            taskByWorks = tasks.filter { task -> task.category == TaskCode.WORK.name }
+                            message = if (tasksWork.isEmpty()) UiText.StringResource(R.string.text_message_data_empty) else null,
+                            taskByWorks = tasksWork
                         )
                     }
                 }.onFailure {
                     _workState.update {
-                        it.copy(isError = true, isLoading = false, taskByWorks = emptyList())
+                        it.copy(
+                            isError = true,
+                            message = UiText.StringResource(R.string.text_message_error_something),
+                            taskByWorks = emptyList()
+                        )
+
                     }
                 }
             }

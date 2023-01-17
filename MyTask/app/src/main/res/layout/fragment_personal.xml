@@ -22,4 +22,16 @@
         app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
         tools:listitem="@layout/item_row_task" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_placeholder_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_message_data_empty"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.MyTask.Body.Regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

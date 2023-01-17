@@ -17,5 +17,5 @@ object Constants {
     const val TIME_PICKER_TAG = "time_picker_TAG"
 
     const val DATE_FORMATTER = "dd/MM/yyyy"
-    const val TIME_FORMATTER = "hh:mm"
+    const val TIME_FORMATTER = "hh:mm a"
 }

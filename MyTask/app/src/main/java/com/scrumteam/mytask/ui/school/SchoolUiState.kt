@@ -5,7 +5,7 @@ import com.scrumteam.mytask.utils.UiText
 
 data class SchoolUiState(
     val isError: Boolean = false,
-    val isLoading: Boolean = false,
+    val message: UiText? = null,
     val schoolTask: List<Task> = emptyList()
 )
 
