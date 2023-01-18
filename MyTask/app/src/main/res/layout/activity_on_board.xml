@@ -14,7 +14,9 @@
         android:layout_marginEnd="@dimen/root_padding"
         android:clickable="true"
         android:focusable="true"
+        android:elevation="6dp"
         android:text="@string/skip"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.MyTask.H5.Medium"
         app:layout_constraintBottom_toTopOf="@id/vp_onboard"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/indicator_on_board"
-        app:layout_constraintTop_toBottomOf="@id/btn_skip" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/indicator_on_board"
