@@ -17,7 +17,7 @@ class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    val currentUser = authRepository.currentUser.asLiveData()
+    val currentUser by lazy { authRepository.currentUser.asLiveData() }
 
     private val _loginState: MutableStateFlow<LoginUiState> = MutableStateFlow(LoginUiState())
     val loginState: LiveData<LoginUiState> = _loginState.asLiveData()
