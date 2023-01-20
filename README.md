@@ -2,4 +2,4 @@
 
 ## Report testing
 + Authentication
-  + [x] [Login Test](documents/reports/tests/testDebugUnitTest//classes/com.scrumteam.mytask.ui.auth.login.LoginViewModelTest.html) 
+  + [x] [Login Test](https://htmlpreview.github.io/?https://github.com/dindamaylan/MyTask/blob/master/documents/reports/tests/testDebugUnitTest/classes/com.scrumteam.mytask.ui.auth.login.LoginViewModelTest.html) 
